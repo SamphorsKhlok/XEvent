@@ -6,10 +6,14 @@ import {MdButtonModule,
   MdToolbarModule ,
   MdListModule,
   MdSidenavModule,
-  MdIconModule
+  MdIconModule,
+  MdCardModule,
+  MdChipsModule,
+  MdInputModule,
+
 } from '@angular/material';
-
-
+import {FormsModule,ReactiveFormsModule} from "@angular/forms";
+import {FlexLayoutModule} from "@angular/flex-layout";
 import { AppComponent } from './app.component';
 import 'hammerjs';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
@@ -24,6 +28,9 @@ import { Guard } from './guard/guard';
 import { EventComponent } from './components/event/event.component';
 import { UserComponent } from './components/user/user.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { EventlistComponent } from './components/event/eventlist/eventlist.component';
+import { EventdetailComponent } from './components/event/eventdetail/eventdetail.component';
+import { TextfilterPipe } from './textfilter.pipe';
 
 @NgModule({
   declarations: [
@@ -37,7 +44,10 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     ProfileComponent,
     EventComponent,
     UserComponent,
-    DashboardComponent
+    DashboardComponent,
+    EventlistComponent,
+    EventdetailComponent,
+    TextfilterPipe
   ],
   imports: [
     BrowserModule,
@@ -48,7 +58,13 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     MdIconModule,
     MdSidenavModule,
     MdListModule,
-    myRoutes
+    MdCardModule,
+    MdChipsModule,
+    MdInputModule,
+    myRoutes,
+    FlexLayoutModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [Guard],
   bootstrap: [AppComponent]

@@ -1,0 +1,28 @@
+<md-card class="example-card">
+  <md-card-header>
+    <div md-card-avatar class="example-header-image"></div>
+    <md-card-title>Shiba Inu</md-card-title>
+    <md-card-subtitle>Dog Breed</md-card-subtitle>
+  </md-card-header>
+  <!--<img md-card-image src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Taka_Shiba.jpg/1200px-Taka_Shiba.jpg" alt="Photo of a Shiba Inu">-->
+  <md-card-content>
+    <form [formGroup]="myForm" class="example-form">
+      <md-form-field class="example-full-width">
+        <input mdInput placeholder="name" aria-label="Name" formControlName="name">
+      </md-form-field>
+
+      <div formGroupName="address">
+        <md-form-field class="example-full-width">
+          <input mdInput placeholder="city" aria-label="City" formControlName="city">
+        </md-form-field>
+        <md-form-field class="example-full-width">
+          <input mdInput placeholder="zip" aria-label="Zip Code" formControlName="zip">
+        </md-form-field>
+      </div>
+    </form>
+  </md-card-content>
+  <md-card-actions>
+    <button md-raised-button color="primary">Edit</button>
+    <button md-raised-button color="warn">Delete</button>
+  </md-card-actions>
+</md-card>
