@@ -8,21 +8,46 @@
   <md-card-content>
     <form [formGroup]="myForm" class="example-form">
       <md-form-field class="example-full-width">
-        <input mdInput placeholder="name" aria-label="Name" formControlName="name">
+        <input mdInput placeholder="name" aria-label="Name" formControlName="name" [value]="selectedItem.name">
+      </md-form-field>
+      <md-form-field class="example-full-width">
+        <input mdInput placeholder="description" aria-label="Description" formControlName="description" [value]="selectedItem.description">
+      </md-form-field>
+      <md-form-field class="example-full-width">
+        <input mdInput placeholder="remark" aria-label="Remark" formControlName="remark" [value]="selectedItem.remark">
+      </md-form-field>
+      <md-form-field class="example-full-width">
+        <input mdInput placeholder="date" aria-label="Date" formControlName="date" [value]="selectedItem.date">
       </md-form-field>
 
       <div formGroupName="address">
         <md-form-field class="example-full-width">
-          <input mdInput placeholder="city" aria-label="City" formControlName="city">
+          <input mdInput placeholder="street" aria-label="Street" formControlName="street" [value]="selectedItem.address.street">
+        </md-form-field>
+
+        <md-form-field class="example-full-width">
+          <input mdInput placeholder="city" aria-label="City" formControlName="city" [value]="selectedItem.address.city">
         </md-form-field>
         <md-form-field class="example-full-width">
-          <input mdInput placeholder="zip" aria-label="Zip Code" formControlName="zip">
+          <input mdInput placeholder="state" aria-label="State" formControlName="state" [value]="selectedItem.address.state">
+        </md-form-field>
+        <md-form-field class="example-full-width">
+          <input mdInput placeholder="zipcode" aria-label="Zip Code" formControlName="zipcode" [value]="selectedItem.address.zipcode">
         </md-form-field>
       </div>
+      <md-form-field class="example-full-width">
+        <input mdInput placeholder="location" aria-label="Location" formControlName="location" [value]="selectedItem.location">
+      </md-form-field>
+      <md-form-field class="example-full-width">
+        <input mdInput placeholder="tags" aria-label="Date" formControlName="tags" [value]="selectedItem.tags">
+      </md-form-field>
+      <md-form-field class="example-full-width">
+        <input mdInput placeholder="Users" aria-label="Users" formControlName="users" [value]="selectedItem.users">
+      </md-form-field>
     </form>
   </md-card-content>
   <md-card-actions>
-    <button md-raised-button color="primary">Edit</button>
-    <button md-raised-button color="warn">Delete</button>
+    <button md-raised-button color="primary" (click)="submitForm()">Save</button>
+    <button md-raised-button color="warn" (click)="deleteEvent(selectedItem._id)">Delete</button>
   </md-card-actions>
 </md-card>
