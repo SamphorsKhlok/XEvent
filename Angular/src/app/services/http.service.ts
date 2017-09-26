@@ -11,7 +11,7 @@ export class HttpService {
   headers : HttpHeaders;
 
   constructor(private http: HttpClient, private auth: AuthService) {
-    this.headers = new HttpHeaders().set('Authorization', 'Bearer:'+ this.auth.token)
+    this.headers = new HttpHeaders().set('Authorization', 'Bearer:'+ this.auth.getUserToken())
   }
 
   //service for event
