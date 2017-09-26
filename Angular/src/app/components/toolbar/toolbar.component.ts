@@ -15,11 +15,13 @@ export class ToolbarComponent implements OnInit {
   @Input() title;
   user: Observable<firebase.User>;
   userinfo: any;
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {
+    this.user = this.authService.getState();
+    //this.userinfo = this.authService.getUserInfo();
+  }
 
   ngOnInit() {
-    this.user = this.authService.getState();
-    this.userinfo = this.authService.getUserInfo();
+
   }
 
   logout() {

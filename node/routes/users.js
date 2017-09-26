@@ -13,16 +13,17 @@ var urlparser = bodyParser.urlencoded({
 var User = require(path.join(appRootDir, '/services/userservice'));
 
 var dummyData = {
-  userID: "u001",
-  email: "u1@gmail.com",
+  userID: "EWtTUdnjROgI3eAz1cqP64l59O93",
+  name: "Natnael G",
+  email: "nat@gmail.com",
   address: {
-    street: "1000 North",
+    street: "1000 North 4th",
     city: "Fairfield",
     State: "IA",
     zipcode: "52557",
   },
-  dob: "05/15/1991",
-  skill: "PHP, JAVA",
+  dob: "05/15/1992",
+  skill: "PHP, JAVA, Joomla",
   education: "BSc computer",
   bio: "I have a dream",
   enabled: 1,
@@ -81,12 +82,14 @@ router.post('/add', urlparser, (req, res) => {
 
 //update user  info
 router.post('/update', urlparser, (req, res) => {
-  const newUser = new User(req.body);
+  //console.log('update invoked.');
+  const newUser = new User(req.body.formData);
   newUser.update().then(() => {
     res.json({
       status: 1
     });
   })
+  .catch( err => console.log("Update Err "+ err))
 })
 
 module.exports = router;

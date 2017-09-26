@@ -4,18 +4,28 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
 
+import { ProfileService } from './profile.service';
+
 @Injectable()
 export class AuthService {
-  user: Observable<firebase.User>;
-  userinfo: any;
-  token;
+  private user: Observable<firebase.User>;
+  private userinfo: any;
+  private token;
+  private uid;
+  private email;
+  constructor(
+    public afAuth: AngularFireAuth,
+    private router: Router,
+    private profileService: ProfileService) {
 
-  constructor(public afAuth: AngularFireAuth, private router: Router) {
     this.user = afAuth.authState;
     this.user.subscribe(
-      (user) => {
-        if (user) {
-          this.userinfo = user;
+      (u) => {
+        if (u) {
+          console.log('constructor...' + u.uid);
+          this.uid = u.uid;
+          this.email = u.email;
+          this.userinfo = u;
         }
       });
   }
@@ -24,9 +34,41 @@ export class AuthService {
     return this.afAuth.authState;
   }
 
+  checkLoggedIn() {
+    this.user.subscribe(
+      (user) => {
+        if (user) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+  }
+
   login() {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then(r => { this.router.navigateByUrl('/profile'); });
+      .then(r => {
+        // if user login for first time, lets save his data on mongodb
+
+        this.afAuth.authState.subscribe(
+          (u) => {
+            if (u) {
+              this.profileService.getUser(u.uid).subscribe(
+                (r2) => {
+                  if (r2.userData.length > 2) {
+                    console.log('Returning user: ' + r2.userData);
+                    this.router.navigateByUrl('/event');
+                  } else {
+                    console.log('tryn to add user');
+                    this.profileService.saveForFirstTime(this.uid, this.email)
+                      .subscribe(r3 => { this.router.navigateByUrl('/event') });
+                  }
+                }
+              );
+            }
+          });
+
+      });
   }
 
   updateProfile() {
@@ -51,6 +93,10 @@ export class AuthService {
 
   getUserInfo() {
     return this.userinfo;
+  }
+
+  getUserID() {
+    return this.uid;
   }
 
 }

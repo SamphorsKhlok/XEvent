@@ -1,3 +1,46 @@
-<p>
-  profile works!
-</p>
+<div fxLayout="row" fxLayoutAlign="start start">
+  <md-card class="example-card">
+    <md-card-header>
+      <md-card-title>Update Profile</md-card-title>
+    </md-card-header>
+    <md-card-content>
+      <form [formGroup]="profileForm" (ngSubmit)="submitForm()" class="example-form">
+        <md-form-field class="example-full-width">
+          <input mdInput placeholder="name" aria-label="Name" formControlName="name">
+        </md-form-field>
+
+        <div formGroupName="address">
+          <md-form-field class="example-full-width">
+            <input mdInput placeholder="city" aria-label="City" formControlName="city">
+          </md-form-field>
+          <md-form-field class="example-full-width">
+            <input mdInput placeholder="zip" aria-label="Zip Code" formControlName="zip">
+          </md-form-field>
+          <md-form-field class="example-full-width">
+            <input mdInput placeholder="street" aria-label="Street" formControlName="street">
+          </md-form-field>
+          <md-form-field class="example-full-width">
+            <input mdInput placeholder="state" aria-label="state" formControlName="state">
+          </md-form-field>
+        </div>
+        <md-form-field class="example-full-width">
+          <input mdInput placeholder="Date of Birth  02/15/1990" aria-label="dob" formControlName="dob">
+        </md-form-field>
+        <md-form-field class="example-full-width">
+          <input mdInput placeholder="Programming SKills: JAVA, C#" aria-label="skill" formControlName="skill">
+        </md-form-field>
+        <md-form-field class="example-full-width">
+          <input mdInput placeholder="Education background " aria-label="education" formControlName="education">
+        </md-form-field>
+        <md-form-field class="example-full-width">
+          <textarea placeholder="Short Bio " mdInput formControlName="bio"></textarea>
+        </md-form-field>
+        <md-card-actions>
+          <button type="submit" md-raised-button color="primary">Update</button>
+        </md-card-actions>
+        {{FormResult}}
+      </form>
+    </md-card-content>
+
+  </md-card>
+</div>

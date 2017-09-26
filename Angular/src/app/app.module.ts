@@ -37,6 +37,7 @@ import { EventdetailComponent } from './components/event/eventdetail/eventdetail
 import { TextfilterPipe } from './textfilter.pipe';
 import { AuthGuard } from './guard/auth.guard';
 import { AuthService } from './services/auth.service';
+import { ProfileService } from './services/profile.service';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyC8WV1odr4k_8Z7GEQ-ETg9o6VkwmqMylk',
@@ -81,9 +82,10 @@ export const firebaseConfig = {
     ReactiveFormsModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    HttpModule
   ],
-  providers: [AuthGuard, AuthService],
+  providers: [AuthGuard, AuthService, ProfileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

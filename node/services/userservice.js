@@ -8,11 +8,12 @@ mongoose.connect(url, {
 
 let userSchema = new mongoose.Schema({
     userID: String,
+    name: String,
     email: String,
     address: {
         street: String,
         city: String,
-        State: String,
+        state: String,
         zipcode: Number,
     },
     dob: Date,
@@ -65,6 +66,31 @@ userSchema.methods.add = function () {
     })
 }
 
-let User = mongoose.model('User', userSchema) 
+userSchema.methods.update = function () {
+    return new Promise((resolve, reject) => {
+        //console.log('ZIPP'+User.);
+        User.findOneAndUpdate({
+            userID: this.userID
+        }, {
+            name: this.name,
+            'address.street': this.address.street,
+            'address.city': this.address.city,
+            'address.state': this.address.state,
+            'address.zipcode': this.address.zipcode,
+            dob: new Date(this.dob),
+            skill: this.skill,
+            education: this.education,
+            bio: this.bio,
+        }, (err, data) => {
+            if (err) {
+                throw err;
+            } else {
+                console.log('updated')
+                resolve(data);
+            }
+        })
+    })
+}
 
+let User = mongoose.model('User', userSchema);
 module.exports = User;
