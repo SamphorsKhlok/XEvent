@@ -3,12 +3,11 @@ import { HomeComponent} from './components/home/home.component';
 import { RegisterComponent} from "./components/register/register.component";
 import { ErrorComponent} from "./components/error/error.component";
 import { ProfileComponent} from "./components/profile/profile.component";
-import { Guard } from './guard/guard';
+import { AuthGuard } from './guard/auth.guard';
 import {EventComponent} from "./components/event/event.component";
 import {UserComponent} from "./components/user/user.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {LoginComponent} from "./components/login/login.component";
-
 
 const MY_ROUTES: Routes = [
 
@@ -16,7 +15,7 @@ const MY_ROUTES: Routes = [
   {path : '', component: HomeComponent},
   {path : 'register', component: RegisterComponent},
   {path : 'error', component: ErrorComponent},
-  {path : 'profile', component: ProfileComponent, canActivate: [Guard]},
+  {path : 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
 
   //admin pages
   {path : 'event', component: EventComponent},
