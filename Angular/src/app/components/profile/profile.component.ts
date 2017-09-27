@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
       r => {
         let d = JSON.parse(r.userData);
         this.profileForm.controls['name'].setValue(d[0].name);
-        var myDate = new Date(d[0].dob);
+        const myDate = new Date(d[0].dob);
         this.profileForm.controls['dob'].setValue(myDate.getMonth() + '/' + myDate.getDate() + '/' + myDate.getFullYear());
         this.profileForm.controls['skill'].setValue(d[0].skill);
         this.profileForm.controls['education'].setValue(d[0].education);

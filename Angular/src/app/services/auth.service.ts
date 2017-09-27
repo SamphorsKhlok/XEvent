@@ -55,11 +55,11 @@ export class AuthService {
             if (u) {
               this.profileService.getUser(u.uid).subscribe(
                 (r2) => {
-                  if (r2.userData.length > 2) {
+                  if (JSON.parse(r2.userData)[0]) {
                     console.log('Returning user: ' + r2.userData);
                     this.router.navigateByUrl('/event');
                   } else {
-                    console.log('tryn to add user');
+                    console.log('New user: Add to db');
                     this.profileService.saveForFirstTime(this.uid, this.email)
                       .subscribe(r3 => { this.router.navigateByUrl('/event') });
                   }
