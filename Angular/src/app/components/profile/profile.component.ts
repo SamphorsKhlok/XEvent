@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import 'rxjs/Rx';
+import { LocalStorageService } from 'ng2-webstorage';
 
 import { ProfileService } from '../../services/profile.service';
 import { AuthService } from '../../services/auth.service';
@@ -13,7 +14,10 @@ import { AuthService } from '../../services/auth.service';
 export class ProfileComponent implements OnInit {
   FormResult;
   profileForm: FormGroup;
-  constructor(private fb: FormBuilder, private authService: AuthService, private profileService: ProfileService) {
+  constructor(private fb: FormBuilder,
+    private authService: AuthService,
+    private profileService: ProfileService,
+    private localStorageService: LocalStorageService) {
     this.createForm();
     this.profileService.getUser(this.authService.getUserID())
       .subscribe(
@@ -31,14 +35,12 @@ export class ProfileComponent implements OnInit {
           street: d[0].address.street,
           zip: d[0].address.zipcode
         });
+        //console.log('token: '+ this.authService.getToken());
       }
       );
   }
 
-  ngOnInit() {
-    // console.log(this.userInfo);
-    //this.profileForm.controls['name'].setValue(this.userInfo);
-  }
+  ngOnInit() { }
 
   createForm() {
     this.profileForm = this.fb.group({

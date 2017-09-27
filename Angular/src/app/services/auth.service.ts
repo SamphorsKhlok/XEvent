@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
+import { LocalStorageService } from 'ng2-webstorage';
 
 import { ProfileService } from './profile.service';
 
@@ -16,9 +17,14 @@ export class AuthService {
   constructor(
     public afAuth: AngularFireAuth,
     private router: Router,
-    private profileService: ProfileService) {
+    private profileService: ProfileService,
+    private localStorageService: LocalStorageService) {
 
-    this.user = afAuth.authState;
+    if (this.localStorageService.retrieve('userinfo.uid')) {
+      this.token = this.localStorageService.retrieve('ftoken');
+      this.userinfo = this.localStorageService.retrieve('userinfo');
+    }
+    /*this.user = afAuth.authState;
     this.user.subscribe(
       (u) => {
         if (u) {
@@ -27,7 +33,7 @@ export class AuthService {
           this.email = u.email;
           this.userinfo = u;
         }
-      });
+      });*/
   }
 
   getState() {
@@ -65,6 +71,10 @@ export class AuthService {
                   }
                 }
               );
+              // store in local storage
+              this.localStorageService.store('userinfo', JSON.stringify(u));
+              u.getIdToken().then(
+                tok => this.localStorageService.store('ftoken', tok));
             }
           });
 
@@ -83,31 +93,34 @@ export class AuthService {
   }
 
   getToken() {
+    return this.token;
+    /*
     this.userinfo.getToken().then(t => {
       console.log("Token " + t);
       this.token = t;
-    });
+    });*/
   }
 
   logout() {
     this.afAuth.auth.signOut()
-      .then(r => this.router.navigateByUrl(''));
+      .then(r => {
+        this.localStorageService.clear('userInfo');
+        this.localStorageService.clear('ftoken');
+        this.router.navigateByUrl('');
+      });
   }
 
   getUserInfo() {
-    return this.userinfo;
+    return JSON.parse(this.localStorageService.retrieve('userinfo'));
   }
 
   getUserID() {
-    return this.uid;
+    const obj = JSON.parse(this.localStorageService.retrieve('userinfo'));
+    return obj.uid;
   }
 
-  getUserToken(){
-    if(!this.token){
-      this.getToken();
-    }
-
-    return this.token;
+  getUserToken() {
+    return this.localStorageService.retrieve('ftoken');
   }
 
 }

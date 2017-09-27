@@ -19,6 +19,7 @@ import { HttpModule } from '@angular/http';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import {Ng2Webstorage} from 'ng2-webstorage';
 
 import { AppComponent } from './app.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
@@ -86,7 +87,8 @@ export const firebaseConfig = {
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     HttpModule,
-    HttpClientModule
+    HttpClientModule,
+    Ng2Webstorage
   ],
   providers: [AuthGuard, AuthService, ProfileService, HttpService],
   bootstrap: [AppComponent]
