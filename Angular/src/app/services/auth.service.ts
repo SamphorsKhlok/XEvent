@@ -14,6 +14,7 @@ export class AuthService {
   private token;
   private uid;
   private email;
+
   constructor(
     public afAuth: AngularFireAuth,
     private router: Router,
@@ -64,9 +65,10 @@ export class AuthService {
                   if (JSON.parse(r2.userData)[0]) {
                     console.log('Returning user: ' + r2.userData);
                     this.router.navigateByUrl('/event');
+                    this.localStorageService.store('urole', JSON.parse(r2.userData)[0].role);
                   } else {
                     console.log('New user: Add to db');
-                    this.profileService.saveForFirstTime(this.uid, this.email)
+                    this.profileService.saveForFirstTime(u.uid, u.email, this.getUserToken())
                       .subscribe(r3 => { this.router.navigateByUrl('/event') });
                   }
                 }
@@ -81,6 +83,7 @@ export class AuthService {
       });
   }
 
+  /*
   updateProfile() {
     this.userinfo.updateProfile({
       displayName: "Nati G",
@@ -90,7 +93,7 @@ export class AuthService {
     }).catch(function (error) {
       // An error happened.
     });
-  }
+  } */
 
   getToken() {
     return this.token;
@@ -106,6 +109,7 @@ export class AuthService {
       .then(r => {
         this.localStorageService.clear('userInfo');
         this.localStorageService.clear('ftoken');
+        this.localStorageService.clear('urole');
         this.router.navigateByUrl('');
       });
   }
@@ -116,7 +120,10 @@ export class AuthService {
 
   getUserID() {
     const obj = JSON.parse(this.localStorageService.retrieve('userinfo'));
-    return obj.uid;
+    if (obj.uid) {
+      return obj.uid;
+    }
+    return null;
   }
 
   getUserToken() {

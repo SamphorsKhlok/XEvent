@@ -92,5 +92,23 @@ userSchema.methods.update = function () {
     })
 }
 
+userSchema.statics.isAdmin = function (uid) {
+    console.log("check if user is admin: " + uid);
+    return new Promise((resolve, reject) => {
+        if (uid !== null) {
+            User.findOne({
+                'userID': uid,
+                'role': '2'
+            }, function (err, data) {
+                if (err) reject(err);
+                if(data)
+                    resolve(true);
+                else
+                    resolve(false);
+            })
+        }
+    })
+}
+
 let User = mongoose.model('User', userSchema);
 module.exports = User;

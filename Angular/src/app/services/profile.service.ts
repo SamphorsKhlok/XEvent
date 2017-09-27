@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, RequestOptions, Headers, Request } from '@angular/http';
 import 'rxjs/Rx';
+import { LocalStorageService } from 'ng2-webstorage';
 
 @Injectable()
 export class ProfileService {
   private userUrl = 'http://localhost:3000/users/';
-  constructor(private http: Http) {
+  constructor(private http: Http, private localStorageService: LocalStorageService) {
 
   }
 
@@ -18,7 +19,7 @@ export class ProfileService {
     }
   }
 
-  saveForFirstTime(id, email) {
+  saveForFirstTime(id, email, fbToken) {
     const fData = {
       userID: id,
       name: "",
@@ -36,13 +37,34 @@ export class ProfileService {
       enabled: 1,
       role: 1
     };
-    return this.http.post(this.userUrl + 'add', fData)
+    return this.http.post(this.userUrl + 'add', {fData, fbToken})
       .map(res => res.json());
   }
 
-  updateProfile(formData) {
-    return this.http.post(this.userUrl + 'update', { formData })
+  updateProfile(formData, fbToken) {
+    return this.http.post(this.userUrl + 'update', { formData, fbToken })
       .map(res => res.json());
   }
 
+  isAdmin(id) {
+    if (this.localStorageService.retrieve('urole') === 2) {
+      return true;
+    } else {
+      return false;
+    }
+    /*this.getUser(id).subscribe(
+      r => {
+        let d = JSON.parse(r.userData);
+        if (d[0].role === 2) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      err => {
+        console.log(err);
+        return false;
+      }
+    );*/
+  }
 }

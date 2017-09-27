@@ -19,22 +19,25 @@ export class ProfileComponent implements OnInit {
     private profileService: ProfileService,
     private localStorageService: LocalStorageService) {
     this.createForm();
+    //console.log('is admin'+ this.profileService.isAdmin(this.authService.getUserID()));
     this.profileService.getUser(this.authService.getUserID())
       .subscribe(
       r => {
         let d = JSON.parse(r.userData);
-        this.profileForm.controls['name'].setValue(d[0].name);
-        const myDate = new Date(d[0].dob);
-        this.profileForm.controls['dob'].setValue(myDate.getMonth() + '/' + myDate.getDate() + '/' + myDate.getFullYear());
-        this.profileForm.controls['skill'].setValue(d[0].skill);
-        this.profileForm.controls['education'].setValue(d[0].education);
-        this.profileForm.controls['bio'].setValue(d[0].bio);
-        this.profileForm.get('address').setValue({
-          state: d[0].address.state,
-          city: d[0].address.city,
-          street: d[0].address.street,
-          zip: d[0].address.zipcode
-        });
+        if (d[0]) {
+          this.profileForm.controls['name'].setValue(d[0].name);
+          const myDate = new Date(d[0].dob);
+          this.profileForm.controls['dob'].setValue(myDate.getMonth() + '/' + myDate.getDate() + '/' + myDate.getFullYear());
+          this.profileForm.controls['skill'].setValue(d[0].skill);
+          this.profileForm.controls['education'].setValue(d[0].education);
+          this.profileForm.controls['bio'].setValue(d[0].bio);
+          this.profileForm.get('address').setValue({
+            state: d[0].address.state,
+            city: d[0].address.city,
+            street: d[0].address.street,
+            zip: d[0].address.zipcode
+          });
+        }
         //console.log('token: '+ this.authService.getToken());
       }
       );
@@ -77,12 +80,14 @@ export class ProfileComponent implements OnInit {
       enabled: 1,
       role: 1
     };
-    //console.log(fdata)
-    this.profileService.updateProfile(fdata).subscribe(r => {
+    //console.log('token '+this.authService.getUserToken());
+    this.profileService.updateProfile(fdata, this.authService.getUserToken()).subscribe(r => {
       if (r.status === 1) {
         this.FormResult = "Profile Updated Successfully.";
-        }
+      } else {
+        this.FormResult = r.status;
       }
+    }
     );
 
   }
