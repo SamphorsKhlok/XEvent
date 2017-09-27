@@ -1,8 +1,7 @@
 <md-card class="example-card">
   <md-card-header>
-    <div md-card-avatar class="example-header-image"></div>
-    <md-card-title>Shiba Inu</md-card-title>
-    <md-card-subtitle>Dog Breed</md-card-subtitle>
+    <!--<div md-card-avatar class="example-header-image"></div>-->
+    <md-card-title><h4 color="primary">DETAIL - {{selectedItem.name}}</h4></md-card-title>
   </md-card-header>
   <!--<img md-card-image src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Taka_Shiba.jpg/1200px-Taka_Shiba.jpg" alt="Photo of a Shiba Inu">-->
   <md-card-content>
@@ -11,29 +10,36 @@
         <input mdInput placeholder="name" aria-label="Name" formControlName="name" [value]="selectedItem.name">
       </md-form-field>
       <md-form-field class="example-full-width">
-        <input mdInput placeholder="description" aria-label="Description" formControlName="description" [value]="selectedItem.description">
+        <textarea mdInput placeholder="description" aria-label="Description" formControlName="description" [value]="selectedItem.description">
+        </textarea>
       </md-form-field>
       <md-form-field class="example-full-width">
         <input mdInput placeholder="remark" aria-label="Remark" formControlName="remark" [value]="selectedItem.remark">
       </md-form-field>
       <md-form-field class="example-full-width">
-        <input mdInput placeholder="date" aria-label="Date" formControlName="date" [value]="selectedItem.date">
+        <input mdInput placeholder="Choose a date" [mdDatepicker]="picker" aria-label="Date" formControlName="date" [value]="selectedItem.date">
+        <!--<input mdInput [mdDatepicker]="picker" placeholder="Choose a date">-->
+        <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
+        <md-datepicker #picker></md-datepicker>
       </md-form-field>
 
       <div formGroupName="address">
-        <md-form-field class="example-full-width">
-          <input mdInput placeholder="street" aria-label="Street" formControlName="street" [value]="selectedItem.address.street">
-        </md-form-field>
-
-        <md-form-field class="example-full-width">
-          <input mdInput placeholder="city" aria-label="City" formControlName="city" [value]="selectedItem.address.city">
-        </md-form-field>
-        <md-form-field class="example-full-width">
-          <input mdInput placeholder="state" aria-label="State" formControlName="state" [value]="selectedItem.address.state">
-        </md-form-field>
-        <md-form-field class="example-full-width">
-          <input mdInput placeholder="zipcode" aria-label="Zip Code" formControlName="zipcode" [value]="selectedItem.address.zipcode">
-        </md-form-field>
+        <div fxLayout="row">
+          <md-form-field class="example-full-width">
+            <input mdInput placeholder="street" aria-label="Street" formControlName="street" [value]="selectedItem.address.street">
+          </md-form-field>
+          <md-form-field class="example-full-width">
+            <input mdInput placeholder="city" aria-label="City" formControlName="city" [value]="selectedItem.address.city">
+          </md-form-field>
+        </div>
+        <div fxLayout="row">
+          <md-form-field class="example-full-width">
+            <input mdInput placeholder="state" aria-label="State" formControlName="state" [value]="selectedItem.address.state">
+          </md-form-field>
+          <md-form-field class="example-full-width">
+            <input mdInput placeholder="zipcode" aria-label="Zip Code" formControlName="zipcode" [value]="selectedItem.address.zipcode">
+          </md-form-field>
+        </div>
       </div>
       <md-form-field class="example-full-width">
         <input mdInput placeholder="location" aria-label="Location" formControlName="location" [value]="selectedItem.location">

@@ -9,7 +9,7 @@ mongoose.connect(url, {
     useMongoClient: true
 });
 
-var perPage = 7;
+var perPage = 5;
 
 //TODO: considering the index later
 let eventSchema = new mongoose.Schema({
