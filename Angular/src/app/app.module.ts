@@ -11,7 +11,8 @@ import {MdButtonModule,
   MdChipsModule,
   MdInputModule,
   MdDatepickerModule,
-  MdNativeDateModule
+  MdNativeDateModule,
+  MdGridListModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FlexLayoutModule} from "@angular/flex-layout";
@@ -83,6 +84,7 @@ export const firebaseConfig = {
     MdInputModule,
     MdDatepickerModule,
     MdNativeDateModule,
+    MdGridListModule,
     myRoutes,
     FlexLayoutModule,
     FormsModule,

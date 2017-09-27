@@ -1,3 +1,40 @@
-<p>
-  home works!
-</p>
+<div
+     infiniteScroll
+     [infiniteScrollDistance]="1"
+     [infiniteScrollThrottle]="100"
+     (scrolled)="onScroll()" class="tile">
+  <div class="example-header">
+    <md-form-field floatPlaceholder="never">
+      <input mdInput #filter placeholder="Filter keyword">
+    </md-form-field>
+    <button md-icon-button (click)="filter.value=''">
+      <md-icon class="md-24" color="warn">clear</md-icon>
+    </button>
+    <button md-icon-button (click)="filterByKeyword(filter.value)">
+      <md-icon class="md-24" color="primary">search</md-icon>
+    </button>
+  </div>
+  <md-grid-list cols="3" rowHeight="1:1.5">
+    <md-grid-tile *ngFor="let item of data; let i=index" colspan="1" rowspan="1">
+      <md-card  class="listView" (click)="selectedItem(i)" class="example-card" >
+        <md-card-header>
+          <md-card-title><b>{{item.name}}</b></md-card-title>
+          <md-card-subtitle>{{item.date | date}}</md-card-subtitle>
+        </md-card-header>
+        <img md-card-image src="{{item.urlImage}}">
+        <md-card-content>
+          <p md-line>{{item.description | textfilter: [100, ' ... more']}}</p>
+          <p md-line>
+            <md-chip-list >
+              <md-chip *ngFor="let i of item.tags" color="primary">{{i}}</md-chip>
+            </md-chip-list>
+          </p>
+        </md-card-content>
+        <md-card-actions fxLayout="row" fxLayoutAlign="end center" >
+          <button md-raised-button color="primary">Register</button>
+        </md-card-actions>
+      </md-card>
+    </md-grid-tile>
+  </md-grid-list>
+</div>
+

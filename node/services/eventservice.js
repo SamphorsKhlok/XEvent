@@ -29,7 +29,8 @@ let eventSchema = new mongoose.Schema({
     location: [Number],
     tags: [String],
     isDelete: Boolean,
-    users:[String]
+    users:[String],
+    imageUrl: String
 });
 
 eventSchema.statics.get = function (uid = null, skip = 0, keyword = null) {
@@ -139,8 +140,11 @@ eventSchema.statics.searchEvents = function (skip = 0, keyword = null) {
             }).limit(perPage).skip(perPage*skip);
         } else {
             console.log("keyword not null");
-            Event.find({
-                "name": keyword
+            Event.find({$or:[
+                {"name": new RegExp('.*'+ keyword +'.*', "i")},
+                {"description": new RegExp('.*'+ keyword +'.*', "i")}
+            ]
+                //"name": new RegExp('.*'+ keyword +'.*', "i"),
             }, function (err, data) {
                 if (err) rej(err);
                 console.log(JSON.stringify(data));

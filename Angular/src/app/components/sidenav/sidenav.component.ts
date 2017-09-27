@@ -67,12 +67,7 @@ export class SidenavComponent implements OnInit {
           title: "User",
           icon: "assignment_ind",
           link: "/user"
-        },
-        {
-          title: "Daskboard",
-          icon: "trending_up",
-          link: "/dashboard"
-        },
+        }
       ];
     }else {
       this.links = [

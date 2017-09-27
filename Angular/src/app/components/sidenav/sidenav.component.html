@@ -1,10 +1,6 @@
 <md-sidenav-container class="example-container">
   <md-sidenav #sidenav class="example-sidenav" mode="side" opened="true">
     <md-nav-list>
-      <!--<md-list-item *ngFor="let item of links">-->
-        <!--<md-icon color="primary">{{item.icon}}</md-icon>-->
-        <!--<a mdLine href="{{item.link}}">{{item.title}}</a>-->
-      <!--</md-list-item>-->
       <a md-list-item *ngFor="let item of links" class="sidenav-link" href="{{item.link}}">
         <md-icon md-list-icon color="primary">{{item.icon}}</md-icon>
         <span class="title" md-line>{{item.title}}</span>
@@ -15,3 +11,4 @@
     <router-outlet></router-outlet>
   </div>
 </md-sidenav-container>
+
