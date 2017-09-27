@@ -38,32 +38,16 @@ var dummyData = {
 }
 //role -> admin:2 , regular user, 1:
 
-//get all users
-router.get('/', function (req, res, next) {
-  User.get()
-    .then(data => {
-      res.json(JSON.stringify(data))
-    })
-    .catch(err => res.json(err));
-});
-
 // get user by ID
 router.get('/:uid', (req, res) => {
   console.log("Get user using ID : " + req.params.uid);
   User.get(req.params.uid)
     .then(data => {
-      console.log("data length is " + data.length);
-      if (data.length) { // if array is not empty
+        console.log('Returned user data ...');
         console.log(JSON.parse(data));
         res.json({
           userData: data
         });
-      } else {
-        console.log("requested user not found " + JSON.parse(data));
-        res.json({
-          userData: []
-        });
-      }
     })
     .catch(err => {
       res.json({
@@ -71,6 +55,16 @@ router.get('/:uid', (req, res) => {
       });
     });
 })
+
+//get all users
+router.get('/list/:start/:perpage', function (req, res, next) {
+  console.log("Get users starting from : " + req.params.start);
+  User.listUsers(req.params.start, req.params.perpage)
+    .then(data => {
+      res.json(data)
+    })
+    .catch(err => res.json(err));
+});
 
 // check if admin
 router.get('/isadmin/:uid', (req, res) => {

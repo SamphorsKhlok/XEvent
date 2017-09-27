@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ProfileService} from "../../services/profile.service";
-import {AuthService} from "../../services/auth.service";
+import { ProfileService } from "../../services/profile.service";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: 'app-sidenav',
@@ -8,7 +8,7 @@ import {AuthService} from "../../services/auth.service";
   styleUrls: ['./sidenav.component.css']
 })
 export class SidenavComponent implements OnInit {
-  isAdmin : Boolean = false;
+  isAdmin: Boolean = false;
   links = [
     {
       title: "Home",
@@ -16,7 +16,7 @@ export class SidenavComponent implements OnInit {
       link: "/"
     },
     {
-      title:"Login",
+      title: "Login",
       icon: "lock",
       link: "/login",
     },
@@ -41,12 +41,14 @@ export class SidenavComponent implements OnInit {
       link: "/dashboard"
     },
   ];
-  constructor(private profileService: ProfileService , private authService: AuthService) {
-    this.isAdmin = this.profileService.isAdmin(this.authService.getUserID());
+  constructor(private profileService: ProfileService, private authService: AuthService) {
+    if (this.authService.getUserID()) {
+      this.isAdmin = this.profileService.isAdmin(this.authService.getUserID());
+    }
   }
 
   ngOnInit() {
-    if(this.isAdmin){
+    if (this.isAdmin) {
       this.links = [
         {
           title: "Home",
@@ -69,7 +71,7 @@ export class SidenavComponent implements OnInit {
           link: "/user"
         }
       ];
-    }else {
+    } else {
       this.links = [
         {
           title: "Home",

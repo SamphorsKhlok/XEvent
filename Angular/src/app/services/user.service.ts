@@ -4,7 +4,7 @@ import 'rxjs/Rx';
 import { LocalStorageService } from 'ng2-webstorage';
 
 @Injectable()
-export class ProfileService {
+export class UserService {
   private userUrl = 'http://localhost:3000/users/';
   constructor(private http: Http, private localStorageService: LocalStorageService) { }
 
@@ -17,6 +17,11 @@ export class ProfileService {
     }
   }
 
+  getUsers(start, perpage) {
+    return this.http.get(this.userUrl + 'list/' + start + '/' + perpage)
+      .map(res => res.json());
+  }
+  /*
   saveForFirstTime(id, email, fbToken) {
     const fData = {
       userID: id,
@@ -42,27 +47,6 @@ export class ProfileService {
   updateProfile(formData, fbToken) {
     return this.http.post(this.userUrl + 'update', { formData, fbToken })
       .map(res => res.json());
-  }
+  }*/
 
-  isAdmin(id) {
-    if (this.localStorageService.retrieve('urole') === 2) {
-      return true;
-    } else {
-      return false;
-    }
-    /*this.getUser(id).subscribe(
-      r => {
-        let d = JSON.parse(r.userData);
-        if (d[0].role === 2) {
-          return true;
-        } else {
-          return false;
-        }
-      },
-      err => {
-        console.log(err);
-        return false;
-      }
-    );*/
-  }
 }
