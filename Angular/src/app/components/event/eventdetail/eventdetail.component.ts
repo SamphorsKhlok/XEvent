@@ -48,7 +48,7 @@ export class EventdetailComponent implements OnInit {
       ()=> console.info("completed")
     );
   }
-
+  //TODO: form need to fix on page when scroll down far
   ngOnInit() {
   }
 

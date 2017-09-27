@@ -41,6 +41,7 @@ import { AuthService } from './services/auth.service';
 import { ProfileService } from './services/profile.service';
 import { HttpService} from "./services/http.service";
 import { HttpClientModule} from "@angular/common/http";
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyC8WV1odr4k_8Z7GEQ-ETg9o6VkwmqMylk',
@@ -88,7 +89,9 @@ export const firebaseConfig = {
     AngularFireAuthModule,
     HttpModule,
     HttpClientModule,
-    Ng2Webstorage
+    Ng2Webstorage,
+    InfiniteScrollModule
+
   ],
   providers: [AuthGuard, AuthService, ProfileService, HttpService],
   bootstrap: [AppComponent]

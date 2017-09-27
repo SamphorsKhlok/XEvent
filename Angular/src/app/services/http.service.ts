@@ -11,26 +11,41 @@ export class HttpService {
   headers : HttpHeaders;
 
   constructor(private http: HttpClient, private auth: AuthService) {
-    this.headers = new HttpHeaders().set('Authorization', 'Bearer:'+ this.auth.getUserToken())
+    this.headers = new HttpHeaders().set('Authorization', 'Bearer:')
+    //this.headers = new HttpHeaders().set('Authorization', 'Bearer:'+ this.auth.getUserToken())
   }
 
   //service for event
   addEvent(){
     this.url = this.baseUrl+this.eventPage+ '/add';
     //with token TODO: add token later
-    return this.http.post(this.url,this.body,{headers: this.headers});
-    //return this.http.post(this.url,this.body);
+    //return this.http.post(this.url,this.body,{headers: this.headers});
+    return this.http.post(this.url,this.body);
   }
 
-  getEvents(){
-    this.url = this.baseUrl + this.eventPage;
+  getEvents(skip){
+    this.url = this.baseUrl + this.eventPage + '?skip=' + skip;
     return this.http.get(this.url);
   }
 
+  searchEvents(skip, keyword){
+    this.url = this.baseUrl + this.eventPage + '/search';
+    this.body = {
+      skip: skip,
+      keyword: keyword,
+    };
+    return this.http.post(this.url, this.body);
+  }
+
   deleteEvent(id){
-    this.url = this.baseUrl + this.eventPage + '/delete';
-    this.body = { id : id};
-    return this.http.post(this.url,this.body,{headers: this.headers});
+    this.url = this.baseUrl + this.eventPage + '/delete/'+ id;
+    return this.http.get(this.url);
+  }
+
+  updateEvent(obj){
+    this.body = { data: obj};
+    this.url = this.baseUrl + this.eventPage + '/update';
+    return this.http.post(this.url, this.body,{headers: this.headers} );
   }
 
 }

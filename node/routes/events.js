@@ -3,6 +3,7 @@ var path = require('path');
 var router = express.Router();
 var appRootDir = require('app-root-dir').get();
 var bodyParser = require('body-parser');
+var url = require('url');
 const parser = bodyParser.urlencoded({
     extended: false
 })
@@ -15,7 +16,11 @@ var Event = require(path.join(appRootDir, '/services/eventservice'));
 /* GET Events listing. */
 //get all event
 router.get('/', function (req, res, next) {
-    Event.get()
+    console.log("get all events");
+    let urlObj = url.parse(req.url,true);
+    let skip = parseInt(urlObj.query.skip);
+    //console.log("skip "+ skip);
+    Event.get(null, skip)
         .then(data => {
             res.json(data);
         })
@@ -25,29 +30,20 @@ router.get('/', function (req, res, next) {
 // get event by ID
 router.get('/:id', (req, res) => {
 
-    console.log("Get user using ID : " + req.params.id);
+    console.log("Get event byID : " + req.params.id);
     Event.get(req.params.id)
         .then(data => {
             console.log("data length is " + data.length);
             if (data.length) { // if array is not empty
                 console.log(JSON.parse(data));
-                res.json({
-                    userData: data
-                });
+                res.json(data);
             } else {
                 console.log("requested user not found " + JSON.parse(data));
-                res.json({
-                    userData: []
-                });
-
+                res.json({});
             }
         })
-        .catch(err => {
-            res.json({
-                userData: []
-            });
-        });
-})
+        .catch(err => res.json(err));
+});
 
 //Add new event
 router.post('/add', (req, res) => {
@@ -80,23 +76,41 @@ router.post('/add', (req, res) => {
             userData: newEvent
         });
     })
-})
+});
 
 //update user  info
-router.post('/update', urlparser, (req, res) => {
+router.post('/update', (req, res) => {
     const newEvent = new Event(req.body);
     newEvent.update().then(() => {
         res.json({
             status: 1
         });
     })
-})
+});
 
-//update event
-router.post('/delete', (req, res) => {
-    Event.remove(req.body.id).then((data) => {
+//delete event
+router.get('/delete/:id', (req, res) => {
+    console.log(req.params.id);
+    Event.remove(req.params.id).then((data) => {
         res.json(data);
     })
-})
+});
+
+//search
+router.post('/search', function (req, res, next) {
+    console.log("post search event");
+    //let urlObj = url.parse(req.url,true);
+    //console.log(urlObj);
+
+    let keyword = req.body.keyword;
+    let skip = parseInt(req.body.skip);
+
+    console.log("skip " + skip + " keyword "+ keyword);
+    Event.searchEvents(skip, keyword)
+        .then(data => {
+            res.json(data);
+        })
+        .catch(err => res.json(err));
+});
 
 module.exports = router;
