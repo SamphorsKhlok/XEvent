@@ -10,6 +10,9 @@
       <md-form-field floatPlaceholder="never">
         <input mdInput #filter placeholder="Filter keyword">
       </md-form-field>
+      <button md-icon-button (click)="filter.value=''">
+        <md-icon class="md-24" color="warn">clear</md-icon>
+      </button>
       <button md-icon-button (click)="filterByKeyword(filter.value)">
         <md-icon class="md-24" color="primary">search</md-icon>
       </button>

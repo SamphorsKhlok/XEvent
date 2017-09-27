@@ -16,7 +16,7 @@ var Event = require(path.join(appRootDir, '/services/eventservice'));
 /* GET Events listing. */
 //get all event
 router.get('/', function (req, res, next) {
-    console.log("get event");
+    console.log("get all events");
     let urlObj = url.parse(req.url,true);
     let skip = parseInt(urlObj.query.skip);
     //console.log("skip "+ skip);
@@ -97,11 +97,16 @@ router.get('/delete/:id', (req, res) => {
 });
 
 //search
-router.get('/search', function (req, res, next) {
-    console.log("search event");
-    let urlObj = url.parse(req.url,true);
-    let keyword = parseInt(urlObj.query.keyword);
-    Event.get(null, 0, keyword)
+router.post('/search', function (req, res, next) {
+    console.log("post search event");
+    //let urlObj = url.parse(req.url,true);
+    //console.log(urlObj);
+
+    let keyword = req.body.keyword;
+    let skip = parseInt(req.body.skip);
+
+    console.log("skip " + skip + " keyword "+ keyword);
+    Event.searchEvents(skip, keyword)
         .then(data => {
             res.json(data);
         })

@@ -28,9 +28,13 @@ export class HttpService {
     return this.http.get(this.url);
   }
 
-  searchEvents(uid, skip, keyword){
-    this.url = this.baseUrl + this.eventPage + '/search?keyword=' + keyword;
-    return this.http.get(this.url);
+  searchEvents(skip, keyword){
+    this.url = this.baseUrl + this.eventPage + '/search';
+    this.body = {
+      skip: skip,
+      keyword: keyword,
+    };
+    return this.http.post(this.url, this.body);
   }
 
   deleteEvent(id){

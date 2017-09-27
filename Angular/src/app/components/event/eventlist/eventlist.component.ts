@@ -48,9 +48,10 @@ export class EventlistComponent implements OnInit {
 
   filterByKeyword(keyword){
 
-    this.http.searchEvents(null, 0 , keyword).subscribe(
+    this.http.searchEvents(0 , keyword).subscribe(
       (data)=> {
-        this.data = [];
+        //clear form data
+        this.reset();
         this.data = this.data.concat(data);
       },
       (error)=> console.error(error),
@@ -58,6 +59,11 @@ export class EventlistComponent implements OnInit {
         console.info("fetching event completed")
       }
     );
+  }
+
+  reset(){
+    this.data = [];
+    this.selectedData = {};
   }
 
 }

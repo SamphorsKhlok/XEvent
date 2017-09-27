@@ -7,7 +7,9 @@ const ObjectID = require('mongodb').ObjectID;
 var url = "mongodb://root:123456@ds147864.mlab.com:47864/mwaproject";
 mongoose.connect(url, {
     useMongoClient: true
-})
+});
+
+var perPage = 7;
 
 //TODO: considering the index later
 let eventSchema = new mongoose.Schema({
@@ -32,7 +34,7 @@ let eventSchema = new mongoose.Schema({
 
 eventSchema.statics.get = function (uid = null, skip = 0, keyword = null) {
     console.log("searching database: " + uid + skip + keyword);
-    let perPage = 5;
+    //let perPage = 5;
     return new Promise((res, rej) => {
         if (uid === null) {
             Event.find({}, function (err, data) {
@@ -40,9 +42,9 @@ eventSchema.statics.get = function (uid = null, skip = 0, keyword = null) {
                 res(data);
             }).limit(perPage).skip(perPage*skip);
         } else {
-            Event.find({$or: [
-                {"name": keyword},
-                {"description" : keyword}]
+            console.log("uid null");
+            Event.find({
+                "_id": ObjectID(uid)
             }, function (err, data) {
                 if (err) rej(err);
                 res(data);
@@ -123,6 +125,28 @@ eventSchema.methods.update = function () {
             if (err) throw err;
             resolve(data);
         })
+    })
+}
+
+eventSchema.statics.searchEvents = function (skip = 0, keyword = null) {
+    console.log("searching event " + keyword);
+
+    return new Promise((res, rej) => {
+        if (keyword === null || keyword == '') {
+            Event.find({}, function (err, data) {
+                if (err) rej(err);
+                res(data);
+            }).limit(perPage).skip(perPage*skip);
+        } else {
+            console.log("keyword not null");
+            Event.find({
+                "name": keyword
+            }, function (err, data) {
+                if (err) rej(err);
+                console.log(JSON.stringify(data));
+                res(data);
+            }).limit(perPage).skip(perPage*skip);
+        }
     })
 }
 
