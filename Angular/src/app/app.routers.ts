@@ -4,6 +4,7 @@ import { RegisterComponent} from "./components/register/register.component";
 import { ErrorComponent} from "./components/error/error.component";
 import { ProfileComponent} from "./components/profile/profile.component";
 import { AuthGuard } from './guard/auth.guard';
+import { AdminGuard } from './guard/admin.guard';
 import {EventComponent} from "./components/event/event.component";
 import {UserComponent} from "./components/user/user.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
@@ -18,8 +19,8 @@ const MY_ROUTES: Routes = [
   {path : 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
 
   //admin pages
-  {path : 'event', component: EventComponent},
-  {path : 'user', component: UserComponent},
+  {path : 'event', component: EventComponent, canActivate: [AdminGuard]},
+  {path : 'user', component: UserComponent, canActivate: [AdminGuard]},
   {path : 'dashboard', component: DashboardComponent},
 
   {path : 'login', component: LoginComponent},

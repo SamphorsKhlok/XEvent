@@ -120,7 +120,7 @@ export class AuthService {
 
   getUserID() {
     const obj = JSON.parse(this.localStorageService.retrieve('userinfo'));
-    if (obj.uid) {
+    if (obj && obj.uid) {
       return obj.uid;
     }
     return null;

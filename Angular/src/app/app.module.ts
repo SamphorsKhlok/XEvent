@@ -38,6 +38,7 @@ import { EventlistComponent } from './components/event/eventlist/eventlist.compo
 import { EventdetailComponent } from './components/event/eventdetail/eventdetail.component';
 import { TextfilterPipe } from './textfilter.pipe';
 import { AuthGuard } from './guard/auth.guard';
+import { AdminGuard } from './guard/admin.guard';
 import { AuthService } from './services/auth.service';
 import { ProfileService } from './services/profile.service';
 import { HttpService} from "./services/http.service";
@@ -96,7 +97,7 @@ export const firebaseConfig = {
     InfiniteScrollModule
 
   ],
-  providers: [AuthGuard, AuthService, ProfileService, HttpService],
+  providers: [AuthGuard, AuthService, ProfileService, HttpService, AdminGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
