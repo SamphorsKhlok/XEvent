@@ -2,8 +2,8 @@
   <md-icon class="example-icon">menu</md-icon>
   <span>{{title}}</span>
   <span class="example-spacer"></span>
-  <md-icon class="example-icon">favorite</md-icon>
-  <md-icon class="example-icon">delete</md-icon>
-  <button (click)="login()" *ngIf="!(user | async)?.uid">Login</button>
-  <button (click)="logout()" *ngIf="(user | async)?.uid">Logout</button>
+  <!--<md-icon class="example-icon">favorite</md-icon>-->
+  <md-icon class="example-icon">verified_user</md-icon>
+  <button md-raised-button color="accent" (click)="login()" *ngIf="!(user | async)?.uid">Login</button>
+  <button md-raised-button color="accent" (click)="logout()" *ngIf="(user | async)?.uid">Logout</button>
 </md-toolbar>
