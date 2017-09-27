@@ -78,7 +78,7 @@ router.get('/isadmin/:uid', (req, res) => {
   User.isAdmin(req.params.uid)
     .then(r => {
       if (r == true) { // if array is not empty
-        console.log('checkAdmin..?'+ r);
+        console.log('checkAdmin..?' + r);
         res.json({
           isAdmin: true
         });
@@ -100,7 +100,11 @@ router.post('/add', urlparser,
     firebase.auth().verifyIdToken(req.body.fbToken)
       .then(function (decodedToken) {
         console.log(decodedToken.uid);
-        return next();
+        // check if user token id is similar to passed id from form
+        if (decodedToken.uid === req.body.fData.userID)
+          return next();
+        else
+          return false;
       }).catch(function (error) {
         res.json({
           // invalid token
@@ -128,7 +132,11 @@ router.post('/update', urlparser,
     firebase.auth().verifyIdToken(req.body.fbToken)
       .then((decodedToken) => {
         console.log(decodedToken.uid)
-        return next();
+        // check if user token id is similar to passed id from form
+        if (decodedToken.uid === req.body.formData.userID)
+          return next();
+        else
+          return false;
       }).catch((error) => {
         console.log('Invalid Token');
         res.json({
