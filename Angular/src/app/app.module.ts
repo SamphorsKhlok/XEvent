@@ -38,6 +38,8 @@ import { TextfilterPipe } from './textfilter.pipe';
 import { AuthGuard } from './guard/auth.guard';
 import { AuthService } from './services/auth.service';
 import { ProfileService } from './services/profile.service';
+import { HttpService} from "./services/http.service";
+import { HttpClientModule} from "@angular/common/http";
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyC8WV1odr4k_8Z7GEQ-ETg9o6VkwmqMylk',
@@ -83,9 +85,10 @@ export const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    HttpModule
+    HttpModule,
+    HttpClientModule
   ],
-  providers: [AuthGuard, AuthService, ProfileService],
+  providers: [AuthGuard, AuthService, ProfileService, HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

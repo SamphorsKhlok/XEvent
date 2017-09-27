@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpService} from "../../services/http.service";
 
 @Component({
   selector: 'app-event',
@@ -6,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit {
-  list = [
+  item;
+  list:any = [
     {
       Title: "BoilerMake",
       Remark: "Some remark here",
@@ -63,7 +65,13 @@ export class EventComponent implements OnInit {
 
   constructor() { }
 
+  passingData(value){
+    this.item = value;
+    //console.log("selected item is "+ JSON.stringify(this.item));
+  }
+
   ngOnInit() {
+
   }
 
 }

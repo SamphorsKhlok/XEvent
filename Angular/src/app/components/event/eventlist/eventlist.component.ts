@@ -1,4 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output} from '@angular/core';
+import {HttpService} from "../../../services/http.service";
+import { EventEmitter} from "@angular/core";
 
 @Component({
   selector: 'app-eventlist',
@@ -6,10 +8,26 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./eventlist.component.css']
 })
 export class EventlistComponent implements OnInit {
-@Input() data;
-  constructor() { }
+  data: any;
+  selectedData;
+
+  @Output() emitter = new EventEmitter();
+  constructor(private http: HttpService) { }
 
   ngOnInit() {
+    this.http.getEvents().subscribe(
+      (data)=> {
+          this.data = data;
+          },
+          (error)=> console.error(error),
+          ()=> console.info("fetching event completed")
+    );
+  }
+
+  selectedItem(index){
+    this.selectedData = this.data[index];
+    //console.log(this.selectedData);
+    this.emitter.emit(this.selectedData);
   }
 
 }

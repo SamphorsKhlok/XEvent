@@ -83,7 +83,10 @@ export class AuthService {
   }
 
   getToken() {
-    this.userinfo.getToken().then(t => console.log("Token " + t));
+    this.userinfo.getToken().then(t => {
+      console.log("Token " + t);
+      this.token = t;
+    });
   }
 
   logout() {
@@ -97,6 +100,14 @@ export class AuthService {
 
   getUserID() {
     return this.uid;
+  }
+
+  getUserToken(){
+    if(!this.token){
+      this.getToken();
+    }
+
+    return this.token;
   }
 
 }
