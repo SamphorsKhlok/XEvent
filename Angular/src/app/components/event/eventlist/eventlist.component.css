@@ -1,3 +1,21 @@
 .listView{
   border: solid 1px #E0E0E0;
 }
+
+.example-scrolling-content {
+  height: 100px;
+}
+
+.example-fab {
+  position: absolute;
+  right: 20px;
+  bottom: 10px;
+}
+
+.example-header {
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  padding-left: 24px;
+  font-size: 20px;
+}

@@ -1,14 +1,26 @@
-<md-list>
-  <h3 md-subheader>Event List</h3>
-  <md-list-item *ngFor="let item of data; let i=index" class="listView" (click)="selectedItem(i)">
-    <md-icon md-list-icon>event</md-icon>
-    <h4 md-line color="primary">{{item.name | uppercase}}</h4>
-    <h6 md-line>{{item.description | textfilter: [40, ' ... more']}}</h6>
-    <p md-line > {{item.date | date}} </p>
-    <p md-line>
-      <md-chip-list >
-        <md-chip *ngFor="let i of item.tags" color="primary">{{i}}</md-chip>
-      </md-chip-list>
-    </p>
-  </md-list-item>
-</md-list>
+
+<div class="example-scrolling-content"
+  infiniteScroll
+  [infiniteScrollDistance]="1"
+  [infiniteScrollThrottle]="100"
+  (scrolled)="onScroll()">
+  <md-list>
+    <h3 md-subheader>Event List ({{data.length}})</h3>
+    <div class="example-header">
+      <md-form-field floatPlaceholder="never">
+        <input mdInput #filter placeholder="Filter keyword" (keyup)="filterByKeyword(filter.value)">
+      </md-form-field>
+    </div>
+    <md-list-item *ngFor="let item of data; let i=index" class="listView" (click)="selectedItem(i)">
+      <md-icon md-list-icon>event</md-icon>
+      <h4 md-line color="primary">{{item.name | uppercase}}</h4>
+      <h6 md-line>{{item.description | textfilter: [40, ' ... more']}}</h6>
+      <p md-line > {{item.date | date}} </p>
+      <p md-line>
+        <md-chip-list >
+          <md-chip *ngFor="let i of item.tags" color="primary">{{i}}</md-chip>
+        </md-chip-list>
+      </p>
+    </md-list-item>
+  </md-list>
+</div>

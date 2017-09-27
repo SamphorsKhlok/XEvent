@@ -2,6 +2,8 @@ var mongoose = require('mongoose');
 Promise = require('bluebird');
 mongoose.Promise = Promise;
 
+const ObjectID = require('mongodb').ObjectID;
+
 var url = "mongodb://root:123456@ds147864.mlab.com:47864/mwaproject";
 mongoose.connect(url, {
     useMongoClient: true
@@ -28,21 +30,23 @@ let eventSchema = new mongoose.Schema({
     users:[String]
 });
 
-eventSchema.statics.get = function (uid = null) {
-    console.log("searching database: " + uid);
+eventSchema.statics.get = function (uid = null, skip = 0, keyword = null) {
+    console.log("searching database: " + uid + skip + keyword);
+    let perPage = 5;
     return new Promise((res, rej) => {
         if (uid === null) {
             Event.find({}, function (err, data) {
                 if (err) rej(err);
                 res(data);
-            })
+            }).limit(perPage).skip(perPage*skip);
         } else {
-            Event.find({
-                'name': uid
+            Event.find({$or: [
+                {"name": keyword},
+                {"description" : keyword}]
             }, function (err, data) {
                 if (err) rej(err);
                 res(data);
-            })
+            });
         }
     })
 }
@@ -78,22 +82,50 @@ eventSchema.methods.add = function () {
     })
 };
 
-eventSchema.methods.remove = function (id = null) {
+eventSchema.methods.remove = function (id) {
     console.log("remove");
-
     return new Promise((res, rej) => {
         if (id === null) {
             res({ message : "Remove Failed. No ID found"});
         } else {
             Event.findByIdAndRemove({
-                '_id': id
+                id
             }, function (err, data) {
                 if (err) rej(err);
                 res({message : "Remove Successfully", data: data});
-            })
+            });
         }
     });
 };
+
+eventSchema.methods.update = function () {
+    return new Promise((resolve, reject) => {
+        this.findOneAndUpdate({
+            "_id": ObjectID(id)
+        }, {
+            name: this.name,
+            description: this.description,
+            remark: this.remark,
+            date: this.date,
+            created_at: this.created_at,
+            updated_at: Date.now(),
+            address: {
+                street: this.address.street,
+                city: this.address.city,
+                state: this.address.state,
+                zipcode: this.address.zipcode,
+            },
+            location: this.location,
+            tags: this.tags,
+            isDelete: this.isDelete,
+            users:this.users
+        }, (err, data) => {
+            if (err) throw err;
+            resolve(data);
+        })
+    })
+}
+
 
 let Event = mongoose.model('Event',eventSchema);
 
