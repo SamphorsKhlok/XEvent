@@ -38,7 +38,10 @@
         <md-card-actions>
           <button type="submit" md-raised-button color="primary">Update</button>
         </md-card-actions>
-        {{FormResult}}
+        <div *ngIf="!profileForm.controls['dob'].valid">
+            Invalid Date
+          </div>
+        {{formResult}}
       </form>
     </md-card-content>
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, FormControl } from "@angular/forms";
 import 'rxjs/Rx';
 import { LocalStorageService } from 'ng2-webstorage';
 
@@ -12,9 +12,10 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  FormResult;
+  formResult = '';
   profileForm: FormGroup;
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private authService: AuthService,
     private profileService: ProfileService,
     private localStorageService: LocalStorageService) {
@@ -54,18 +55,26 @@ export class ProfileComponent implements OnInit {
         street: ['', Validators.required],
         zip: ['', Validators.required]
       }),
-      dob: ['', Validators.required],
+      dob: ['', [Validators.required, this.validateDate]],
       skill: ['', Validators.required],
       education: ['', Validators.required],
       bio: ['', Validators.required]
     });
   }
 
+  validateDate(control: FormControl): { [s: string]: boolean } {
+    //const datePattern = '/^\d{1,2}\.\d{1,2}\.\d{4}$/';
+    let dateReg = /^\d{1,2}[./-]\d{1,2}[./-]\d{4}$/;
+    if (!control.value.match(dateReg)) {
+      return { 'invalidDate': true };
+    }
+    return null;
+  }
+
   submitForm() {
     //console.log('update invoked.' + this.profileForm.get('address').get('state').value)
     const fdata = {
       userID: this.authService.getUserID(),
-      //email: "u1@gmail.com",
       name: this.profileForm.get('name').value,
       address: {
         city: this.profileForm.get('address').get('city').value,
@@ -81,11 +90,12 @@ export class ProfileComponent implements OnInit {
       role: 1
     };
     //console.log('token '+this.authService.getUserToken());
+    // call service to update profile
     this.profileService.updateProfile(fdata, this.authService.getUserToken()).subscribe(r => {
       if (r.status === 1) {
-        this.FormResult = "Profile Updated Successfully.";
+        this.formResult = "Profile Updated Successfully.";
       } else {
-        this.FormResult = r.status;
+        this.formResult = r.status;
       }
     }
     );
