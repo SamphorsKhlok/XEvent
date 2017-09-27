@@ -27,20 +27,44 @@ let userSchema = new mongoose.Schema({
 userSchema.statics.get = function (uid = null) {
 
     console.log("searching database: " + uid);
-    return new Promise((res, rej) => {
+    return new Promise((resolve, reject) => {
         if (uid === null) {
             User.find({}, function (err, data) {
-                if (err) rej(err)
-                res(JSON.stringify(data))
+                if (err) reject(err);
+                if (data)
+                    resolve(JSON.stringify(data))
+                else
+                    resolve([]) // user not found, return empty array
             })
         } else {
             User.find({
                 'userID': uid
             }, function (err, data) {
-                if (err) rej(err)
-                res(JSON.stringify(data))
+                if (err) reject(err)
+                resolve(JSON.stringify(data))
             })
         }
+    })
+}
+
+userSchema.statics.listUsers = function (pgStart = 0, perPage=10) {
+    console.log("searching user db starting from: " + pgStart + " & limit "+ perPage);
+    var perPage = parseInt(perPage);
+    var pgStart = parseInt(pgStart);
+    return new Promise((resolve, reject) => {
+        User.find({})
+        .limit(perPage)
+        .skip(perPage * pgStart)
+        .sort({
+            userID: 'asc'
+        })
+        .exec( (err, data) => {
+            if (err) reject(err)
+            if (data)
+                resolve(JSON.stringify(data))
+            else
+                resolve([]) // user not found, return empty array
+        });
     })
 }
 
@@ -101,7 +125,7 @@ userSchema.statics.isAdmin = function (uid) {
                 'role': '2'
             }, function (err, data) {
                 if (err) reject(err);
-                if(data)
+                if (data)
                     resolve(true);
                 else
                     resolve(false);

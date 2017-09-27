@@ -1,3 +1,43 @@
-<p>
-  user works!
-</p>
+<h3>Manage Users</h3>
+<div class="example-container mat-elevation-z8">
+    <md-table #table [dataSource]="dataSource">
+   
+      <!-- Position Column -->
+      <ng-container mdColumnDef="pos">
+        <md-header-cell *mdHeaderCellDef> No. </md-header-cell>
+        <md-cell *mdCellDef="let element"> {{element.pos}} </md-cell>
+      </ng-container>
+  
+      <!-- Name Column -->
+      <ng-container mdColumnDef="name">
+        <md-header-cell *mdHeaderCellDef> Name </md-header-cell>
+        <md-cell *mdCellDef="let element"> {{element.name}} </md-cell>
+      </ng-container>
+  
+      <!-- email Column -->
+      <ng-container mdColumnDef="email">
+        <md-header-cell *mdHeaderCellDef> Email </md-header-cell>
+        <md-cell *mdCellDef="let element"> {{element.email}} </md-cell>
+      </ng-container>
+  
+      <!-- manage role Column -->
+      <ng-container mdColumnDef="role">
+        <md-header-cell *mdHeaderCellDef> Role </md-header-cell>
+        <md-cell *mdCellDef="let element"> 
+          <a (click)="changeRole(element.userID)" *ngIf="element.role == 1">Make Admin</a>
+          {{element.role}} 
+        </md-cell>
+      </ng-container>
+
+      <!-- enable/disable user Column -->
+      <ng-container mdColumnDef="action">
+          <md-header-cell *mdHeaderCellDef> Action </md-header-cell>
+          <md-cell *mdCellDef="let element">
+              <a (click)="enable(element.userID)" *ngIf="element.enabled == 1">Disable</a>
+          </md-cell>
+        </ng-container>
+  
+      <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>
+      <md-row *mdRowDef="let row; columns: displayedColumns;"></md-row>
+    </md-table>
+  </div>

@@ -1,9 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MdButtonModule,
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  MdButtonModule,
   MdCheckboxModule,
-  MdToolbarModule ,
+  MdToolbarModule,
   MdListModule,
   MdSidenavModule,
   MdIconModule,
@@ -13,19 +14,19 @@ import {MdButtonModule,
   MdDatepickerModule,
   MdNativeDateModule
 } from '@angular/material';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {FlexLayoutModule} from "@angular/flex-layout";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FlexLayoutModule } from "@angular/flex-layout";
 import 'hammerjs';
 import { HttpModule } from '@angular/http';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import {Ng2Webstorage} from 'ng2-webstorage';
+import { Ng2Webstorage } from 'ng2-webstorage';
 
 import { AppComponent } from './app.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { myRoutes} from './app.routers';
+import { myRoutes } from './app.routers';
 import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ErrorComponent } from './components/error/error.component';
@@ -41,9 +42,11 @@ import { AuthGuard } from './guard/auth.guard';
 import { AdminGuard } from './guard/admin.guard';
 import { AuthService } from './services/auth.service';
 import { ProfileService } from './services/profile.service';
-import { HttpService} from "./services/http.service";
-import { HttpClientModule} from "@angular/common/http";
+import { UserService } from './services/user.service';
+import { HttpService } from './services/http.service';
+import { HttpClientModule } from '@angular/common/http';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { MdTableModule } from '@angular/material';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyC8WV1odr4k_8Z7GEQ-ETg9o6VkwmqMylk',
@@ -94,10 +97,10 @@ export const firebaseConfig = {
     HttpModule,
     HttpClientModule,
     Ng2Webstorage,
-    InfiniteScrollModule
-
+    InfiniteScrollModule,
+    MdTableModule
   ],
-  providers: [AuthGuard, AuthService, ProfileService, HttpService, AdminGuard],
+  providers: [AuthGuard, AuthService, ProfileService, HttpService, AdminGuard, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
