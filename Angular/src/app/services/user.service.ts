@@ -6,7 +6,8 @@ import { AuthService } from './auth.service';
 
 @Injectable()
 export class UserService {
-  private userUrl = 'http://localhost:3000/users/';
+  //private userUrl = 'http://localhost:3000/users/';
+  private userUrl = 'https://dry-springs-92534.herokuapp.com/users/';
   constructor(private http: Http, private authService: AuthService) { }
 
   getUser(id) {
