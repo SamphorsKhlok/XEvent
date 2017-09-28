@@ -45,7 +45,13 @@ export class HttpService {
   updateEvent(obj){
     this.body = { data: obj};
     this.url = this.baseUrl + this.eventPage + '/update';
-    return this.http.post(this.url, this.body,{headers: this.headers} );
+    return this.http.post(this.url, this.body,{headers: this.headers});
+  }
+
+  registerUser(obj){
+    this.body = { userID: obj.userID, eventID: obj.eventID};
+    this.url = this.baseUrl + this.eventPage + '/register';
+    return this.http.post(this.url, this.body);
   }
 
 }

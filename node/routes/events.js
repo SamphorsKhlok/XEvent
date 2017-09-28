@@ -113,4 +113,19 @@ router.post('/search', function (req, res, next) {
         .catch(err => res.json(err));
 });
 
+//register
+router.post('/register', function (req, res, next) {
+    console.log("post register event" + req.body);
+
+    let userID = req.body.userID;
+    let eventID = req.body.eventID;
+
+    console.log("id " + userID + " event "+ eventID);
+    Event.registerUser(userID, eventID)
+        .then(data => {
+            res.json(data);
+        })
+        .catch(err => res.json(err));
+});
+
 module.exports = router;

@@ -154,6 +154,29 @@ eventSchema.statics.searchEvents = function (skip = 0, keyword = null) {
     })
 }
 
+eventSchema.statics.registerUser = function (userID = null, eventID = null ) {
+    console.log("registering event ");
+
+    return new Promise((res, rej) => {
+        if (userID === null || eventID === null) {
+           res({ message : "there is no input"});
+        } else {
+            console.log("keyword not null");
+            Event.update({
+                "_id": ObjectID(eventID)
+            }, {
+                "$addToSet": { "users": userID}
+            },{
+                new:true
+            },function (err, data) {
+                if (err) rej(err);
+                console.log(JSON.stringify(data));
+                res(data);
+            });
+        }
+    })
+}
+
 
 let Event = mongoose.model('Event',eventSchema);
 

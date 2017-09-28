@@ -10,7 +10,7 @@
     <button md-icon-button (click)="filter.value=''">
       <md-icon class="md-24" color="warn">clear</md-icon>
     </button>
-    <button md-icon-button (click)="filterByKeyword(filter.value)">
+    <button md-icon-button (click)="filterByKeyword(filter.value)" tabindex="2">
       <md-icon class="md-24" color="primary">search</md-icon>
     </button>
   </div>
@@ -31,7 +31,8 @@
           </p>
         </md-card-content>
         <md-card-actions fxLayout="row" fxLayoutAlign="end center" >
-          <button md-raised-button color="primary">Register</button>
+          <button md-raised-button color="primary" (click)="register(item)" *ngIf="userInfo">Register</button>
+          <button md-raised-button color="primary" (click)="signUp()" *ngIf="!userInfo">Sign Up</button>
         </md-card-actions>
       </md-card>
     </md-grid-tile>
