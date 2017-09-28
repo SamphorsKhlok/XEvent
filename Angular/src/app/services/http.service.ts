@@ -2,17 +2,20 @@ import { Injectable } from '@angular/core';
 import {AuthService} from "./auth.service";
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
+import { GlobalsService } from './globals.service';
+
 @Injectable()
 export class HttpService {
 
   //baseUrl:string = "http://localhost:3000/";
-  baseUrl:string = "http://radiant-hamlet-17220.herokuapp.com/";
+  //baseUrl:string = "http://radiant-hamlet-17220.herokuapp.com/";
+  baseUrl = this.globals.baseUrl;
   eventPage: string = "events";
   url: string = "";
   body = {};
   headers : HttpHeaders;
 
-  constructor(private http: HttpClient, private auth: AuthService) {
+  constructor(private http: HttpClient, private auth: AuthService,private globals: GlobalsService) {
     this.headers = new HttpHeaders().set('Authorization', 'Bearer:')
     //this.headers = new HttpHeaders().set('Authorization', 'Bearer:'+ this.auth.getUserToken())
   }

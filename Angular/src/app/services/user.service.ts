@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { Http, Response, RequestOptions, Headers, Request } from '@angular/http';
 import 'rxjs/Rx';
 import { LocalStorageService } from 'ng2-webstorage';
+import { GlobalsService } from './globals.service';
 import { AuthService } from './auth.service';
 
 @Injectable()
 export class UserService {
-  //private userUrl = 'http://localhost:3000/users/';
-  private userUrl = 'http://radiant-hamlet-17220.herokuapp.com/users/';
-  constructor(private http: Http, private authService: AuthService) { }
+
+  private userUrl = this.globals.baseUrl + 'users/';
+  constructor(private http: Http, private authService: AuthService, private globals: GlobalsService) { }
 
   getUser(id) {
     if (id) {

@@ -44,6 +44,7 @@ import { EventdetailComponent } from './components/event/eventdetail/eventdetail
 import { TextfilterPipe } from './textfilter.pipe';
 import { AuthGuard } from './guard/auth.guard';
 import { AdminGuard } from './guard/admin.guard';
+import { GlobalsService } from './services/globals.service';
 import { AuthService } from './services/auth.service';
 import { ProfileService } from './services/profile.service';
 import { UserService } from './services/user.service';
@@ -109,7 +110,7 @@ export const firebaseConfig = {
     InfiniteScrollModule,
     MdTableModule
   ],
-  providers: [AuthGuard, AuthService, ProfileService, HttpService, AdminGuard, UserService, HashLocationStrategy],
+  providers: [GlobalsService, AuthGuard, AuthService, ProfileService, HttpService, AdminGuard, UserService, HashLocationStrategy],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
