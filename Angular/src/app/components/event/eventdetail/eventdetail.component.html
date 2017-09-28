@@ -1,24 +1,21 @@
 <md-card class="example-card">
   <md-card-header>
-    <!--<div md-card-avatar class="example-header-image"></div>-->
-    <md-card-title><h4 color="primary">DETAIL - {{selectedItem.name}}</h4></md-card-title>
+    <md-card-title><h4 color="primary">DETAIL </h4></md-card-title>
   </md-card-header>
-  <!--<img md-card-image src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Taka_Shiba.jpg/1200px-Taka_Shiba.jpg" alt="Photo of a Shiba Inu">-->
   <md-card-content>
     <form [formGroup]="myForm" class="example-form">
       <md-form-field class="example-full-width">
-        <input mdInput placeholder="name" aria-label="Name" formControlName="name" [value]="selectedItem.name">
+        <input mdInput placeholder="name" aria-label="Name" formControlName="name">
       </md-form-field>
       <md-form-field class="example-full-width">
-        <textarea mdInput placeholder="description" aria-label="Description" formControlName="description" [value]="selectedItem.description">
+        <textarea mdInput placeholder="description" aria-label="Description" formControlName="description">
         </textarea>
       </md-form-field>
       <md-form-field class="example-full-width">
-        <input mdInput placeholder="remark" aria-label="Remark" formControlName="remark" [value]="selectedItem.remark">
+        <input mdInput placeholder="remark" aria-label="Remark" formControlName="remark">
       </md-form-field>
       <md-form-field class="example-full-width">
-        <input mdInput placeholder="Choose a date" [mdDatepicker]="picker" aria-label="Date" formControlName="date" [value]="selectedItem.date">
-        <!--<input mdInput [mdDatepicker]="picker" placeholder="Choose a date">-->
+        <input mdInput placeholder="Choose a date" [mdDatepicker]="picker" aria-label="Date" formControlName="date">
         <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
         <md-datepicker #picker></md-datepicker>
       </md-form-field>
@@ -26,29 +23,29 @@
       <div formGroupName="address">
         <div fxLayout="row">
           <md-form-field class="example-full-width">
-            <input mdInput placeholder="street" aria-label="Street" formControlName="street" [value]="selectedItem.address.street">
+            <input mdInput placeholder="street" aria-label="Street" formControlName="street">
           </md-form-field>
           <md-form-field class="example-full-width">
-            <input mdInput placeholder="city" aria-label="City" formControlName="city" [value]="selectedItem.address.city">
+            <input mdInput placeholder="city" aria-label="City" formControlName="city">
           </md-form-field>
         </div>
         <div fxLayout="row">
           <md-form-field class="example-full-width">
-            <input mdInput placeholder="state" aria-label="State" formControlName="state" [value]="selectedItem.address.state">
+            <input mdInput placeholder="state" aria-label="State" formControlName="state">
           </md-form-field>
           <md-form-field class="example-full-width">
-            <input mdInput placeholder="zipcode" aria-label="Zip Code" formControlName="zipcode" [value]="selectedItem.address.zipcode">
+            <input mdInput placeholder="zipcode" aria-label="Zip Code" formControlName="zipcode">
           </md-form-field>
         </div>
       </div>
       <md-form-field class="example-full-width">
-        <input mdInput placeholder="location" aria-label="Location" formControlName="location" [value]="selectedItem.location">
+        <input mdInput placeholder="location" aria-label="Location" formControlName="location">
       </md-form-field>
       <md-form-field class="example-full-width">
-        <input mdInput placeholder="tags" aria-label="Date" formControlName="tags" [value]="selectedItem.tags">
+        <input mdInput placeholder="tags" aria-label="Date" formControlName="tags">
       </md-form-field>
       <md-form-field class="example-full-width">
-        <input mdInput placeholder="Users" aria-label="Users" formControlName="users" [value]="selectedItem.users">
+        <input mdInput placeholder="Users" aria-label="Users" formControlName="users">
       </md-form-field>
     </form>
   </md-card-content>
