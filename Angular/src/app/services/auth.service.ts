@@ -16,7 +16,7 @@ export class AuthService {
   private email;
 
   constructor(
-    public afAuth: AngularFireAuth,
+    private afAuth: AngularFireAuth,
     private router: Router,
     private profileService: ProfileService,
     private localStorageService: LocalStorageService) {
@@ -64,12 +64,12 @@ export class AuthService {
                 (r2) => {
                   if (JSON.parse(r2.userData)[0]) {
                     console.log('Returning user: ' + r2.userData);
-                    this.router.navigateByUrl('/event');
+                    this.router.navigateByUrl('/profile');
                     this.localStorageService.store('urole', JSON.parse(r2.userData)[0].role);
                   } else {
                     console.log('New user: Add to db');
                     this.profileService.saveForFirstTime(u.uid, u.email, this.getUserToken())
-                      .subscribe(r3 => { this.router.navigateByUrl('/event') });
+                      .subscribe(r3 => { this.router.navigateByUrl('/profile'); });
                   }
                 }
               );

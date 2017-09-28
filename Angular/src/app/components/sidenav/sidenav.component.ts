@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Observable } from 'rxjs/Observable';
+import * as firebase from 'firebase/app';
+
 import { ProfileService } from "../../services/profile.service";
 import { AuthService } from "../../services/auth.service";
 
@@ -9,6 +13,8 @@ import { AuthService } from "../../services/auth.service";
 })
 export class SidenavComponent implements OnInit {
   isAdmin: Boolean = false;
+  user: Observable<firebase.User>;
+
   links = [
     {
       title: "Home",
@@ -16,75 +22,72 @@ export class SidenavComponent implements OnInit {
       link: "/"
     },
     {
-      title: "Login",
-      icon: "lock",
-      link: "/login",
-    },
-    {
       title: "Profile",
       icon: "account_circle",
       link: "/profile"
     },
-    {
-      title: "Event",
-      icon: "event",
-      link: "/event"
-    },
-    {
-      title: "User",
-      icon: "assignment_ind",
-      link: "/user"
-    },
-    {
-      title: "Daskboard",
-      icon: "trending_up",
-      link: "/dashboard"
-    },
   ];
-  constructor(private profileService: ProfileService, private authService: AuthService) {
-    if (this.authService.getUserID()) {
-      this.isAdmin = this.profileService.isAdmin(this.authService.getUserID());
+  plinks = [
+    {
+      title: "Home",
+      icon: "home",
+      link: "/"
     }
+  ];
+
+  constructor(private profileService: ProfileService, private authService: AuthService) {
+    this.user = this.authService.getState();
+    this.user.subscribe(
+      r => {
+        //if (this.authService.getUserID()) {
+          //this.isAdmin = this.profileService.isAdmin(this.authService.getUserID());
+        //}
+        if (r.uid) {
+          if (this.profileService.isAdmin(this.authService.getUserID())) {
+            this.links = [
+              {
+                title: "Home",
+                icon: "home",
+                link: "/"
+              },
+              {
+                title: "Profile",
+                icon: "account_circle",
+                link: "/profile"
+              },
+              {
+                title: "Event",
+                icon: "event",
+                link: "/event"
+              },
+              {
+                title: "User",
+                icon: "assignment_ind",
+                link: "/user"
+              }
+            ];
+          }
+        }
+      }
+    );
   }
 
   ngOnInit() {
-    if (this.isAdmin) {
-      this.links = [
-        {
-          title: "Home",
-          icon: "home",
-          link: "/"
-        },
-        {
-          title: "Profile",
-          icon: "account_circle",
-          link: "/profile"
-        },
-        {
-          title: "Event",
-          icon: "event",
-          link: "/event"
-        },
-        {
-          title: "User",
-          icon: "assignment_ind",
-          link: "/user"
-        }
-      ];
-    } else {
-      this.links = [
-        {
-          title: "Home",
-          icon: "home",
-          link: "/"
-        },
-        {
-          title: "Profile",
-          icon: "account_circle",
-          link: "/profile"
-        }
-      ];
-    }
   }
+
+  /* else {
+   this.links = [
+     {
+       title: "Home",
+       icon: "home",
+       link: "/"
+     },
+     {
+       title: "Profile",
+       icon: "account_circle",
+       link: "/profile"
+     }
+   ];
+ } */
 
 }

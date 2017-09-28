@@ -44,33 +44,4 @@ export class UserService {
     return this.http.post(this.userUrl + 'changeaccess', { formData, fbToken })
     .map(res => res.json());
   }
-
-  /*
-  saveForFirstTime(id, email, fbToken) {
-    const fData = {
-      userID: id,
-      name: "",
-      email: email,
-      address: {
-        street: "",
-        city: "",
-        state: "",
-        zipcode: "",
-      },
-      dob: "",
-      skill: "",
-      education: "",
-      bio: "",
-      enabled: 1,
-      role: 1
-    };
-    return this.http.post(this.userUrl + 'add', {fData, fbToken})
-      .map(res => res.json());
-  }
-
-  updateProfile(formData, fbToken) {
-    return this.http.post(this.userUrl + 'update', { formData, fbToken })
-      .map(res => res.json());
-  }*/
-
 }
