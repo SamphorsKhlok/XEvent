@@ -13,7 +13,8 @@ import {
   MdInputModule,
   MdDatepickerModule,
   MdNativeDateModule,
-  MdGridListModule
+  MdGridListModule,
+  MdDialogModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -28,7 +29,7 @@ import { AppComponent } from './app.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { myRoutes } from './app.routers';
-import { HomeComponent } from './components/home/home.component';
+import {DialogRegister, HomeComponent} from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ErrorComponent } from './components/error/error.component';
 import { LoginComponent } from './components/login/login.component';
@@ -72,8 +73,10 @@ export const firebaseConfig = {
     DashboardComponent,
     EventlistComponent,
     EventdetailComponent,
-    TextfilterPipe
+    TextfilterPipe,
+    DialogRegister
   ],
+  entryComponents: [DialogRegister],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -89,6 +92,7 @@ export const firebaseConfig = {
     MdDatepickerModule,
     MdNativeDateModule,
     MdGridListModule,
+    MdDialogModule,
     myRoutes,
     FlexLayoutModule,
     FormsModule,
