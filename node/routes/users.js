@@ -11,13 +11,7 @@ var urlparser = bodyParser.urlencoded({
 })
 
 var User = require(path.join(appRootDir, '/services/userservice'));
-
-var firebase = require("firebase-admin");
-var serviceAccount = require("../mwap-79e5b-firebase-adminsdk-5pfjo-999e5a0990.json");
-firebase.initializeApp({
-  credential: firebase.credential.cert(serviceAccount),
-  databaseURL: "https://mwap-79e5b.firebaseio.com"
-});
+var firebase = require(path.join(appRootDir, '/routes/firebase'));
 
 var dummyData = {
   userID: "EWtTUdnjROgI3eAz1cqP64l59O93",
@@ -43,11 +37,11 @@ router.get('/:uid', (req, res) => {
   console.log("Get user using ID : " + req.params.uid);
   User.get(req.params.uid)
     .then(data => {
-        console.log('Returned user data ...');
-        console.log(JSON.parse(data));
-        res.json({
-          userData: data
-        });
+      console.log('Returned user data ...');
+      console.log(JSON.parse(data));
+      res.json({
+        userData: data
+      });
     })
     .catch(err => {
       res.json({
@@ -90,22 +84,7 @@ router.get('/isadmin/:uid', (req, res) => {
 //Add new user 
 router.post('/add', urlparser,
   // check token first
-  (req, res, next) => {
-    firebase.auth().verifyIdToken(req.body.fbToken)
-      .then(function (decodedToken) {
-        console.log(decodedToken.uid);
-        // check if user token id is similar to passed id from form
-        if (decodedToken.uid === req.body.fData.userID)
-          return next();
-        else
-          return false;
-      }).catch(function (error) {
-        res.json({
-          // invalid token
-          status: 'An internal problem has occured. Please Try Again.'
-        });
-      });
-  }, // add to db
+  firebase.verifyToken, // add to db
   (req, res) => {
     const newUser = new User(req.body.fData);
     console.log("User being pushed in Database :" + newUser);
@@ -120,25 +99,9 @@ router.post('/add', urlparser,
 
 //update user  info
 router.post('/update', urlparser,
-  // check token
-  (req, res, next) => {
-    //console.log('update invoked.'+ req.body.fbToken);
-    firebase.auth().verifyIdToken(req.body.fbToken)
-      .then((decodedToken) => {
-        console.log(decodedToken.uid)
-        // check if user token id is similar to passed id from form
-        if (decodedToken.uid === req.body.formData.userID)
-          return next();
-        else
-          return false;
-      }).catch((error) => {
-        console.log('Invalid Token');
-        res.json({
-          status: 'An internal problem has occured. Please Try Again.'
-        });
-      });
-  },
-  //update db
+  // middleware to check token
+  firebase.verifyToken,
+  //if token verified, update db
   (req, res) => {
     const newUser = new User(req.body.formData);
     newUser.update().then(() => {
@@ -147,6 +110,64 @@ router.post('/update', urlparser,
         });
       })
       .catch(err => console.log("Update Err " + err))
+  }
+)
+
+//update user  role, performed by admin user
+// posted data in req body -> formData, fbToken
+router.post('/changerole', urlparser,
+  firebase.verifyToken, // verify token
+  //check Admin privelege
+  (req, res, next) => {
+    User.isAdmin(req.body.formData.userID)
+      .then(r => {
+        if (r == true) {
+          console.log('checkAdmin..?' + r);
+          return next();
+        } else {
+          console.log('unauthorized access');
+          return false;
+        }
+      })
+  },
+  //if token verified and is admin, update db
+  (req, res) => {
+    User.changeRole(req.body.formData)
+      .then(() => {
+        res.json({
+          status: 1
+        });
+      })
+      .catch(err => console.log("Role Update Err " + err))
+  }
+)
+
+// enable or disable user, performed by admin user
+// posted data in req body -> formData, fbToken
+router.post('/changeaccess', urlparser,
+  firebase.verifyToken, // verify token
+  //check Admin privelege
+  (req, res, next) => {
+    User.isAdmin(req.body.formData.userID)
+      .then(r => {
+        if (r == true) {
+          console.log('checkAdmin..?' + r);
+          return next();
+        } else {
+          console.log('unauthorized access');
+          return false;
+        }
+      })
+  },
+  //if token verified and is admin, update db
+  (req, res) => {
+    User.changeAccess(req.body.formData)
+      .then(() => {
+        res.json({
+          status: 1
+        });
+      })
+      .catch(err => console.log("Access Level Update Err " + err))
   }
 )
 

@@ -18,7 +18,7 @@ export class ProfileService {
   }
 
   saveForFirstTime(id, email, fbToken) {
-    const fData = {
+    const formData = {
       userID: id,
       name: "",
       email: email,
@@ -35,7 +35,7 @@ export class ProfileService {
       enabled: 1,
       role: 1
     };
-    return this.http.post(this.userUrl + 'add', {fData, fbToken})
+    return this.http.post(this.userUrl + 'add', {formData, fbToken})
       .map(res => res.json());
   }
 

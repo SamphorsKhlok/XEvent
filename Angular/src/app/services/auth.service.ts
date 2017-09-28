@@ -95,14 +95,15 @@ export class AuthService {
     });
   } */
 
+  /*
   getToken() {
-    return this.token;
-    /*
+    //return this.token;
+
     this.userinfo.getToken().then(t => {
       console.log("Token " + t);
       this.token = t;
-    });*/
-  }
+    });
+  }*/
 
   logout() {
     this.afAuth.auth.signOut()

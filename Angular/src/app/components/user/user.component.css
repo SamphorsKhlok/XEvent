@@ -1,11 +1,24 @@
 .example-container {
-    display: flex;
-    flex-direction: column;
-    max-height: 500px;
-    min-width: 900px;
-  }
-  
-  .mat-table {
-    overflow: auto;
-    max-height: 500px;
-  }
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  min-width: 900px;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+
+.mat-raised-button {
+  font-size: 12px;
+  line-height: 20px;
+  min-width: 50px;
+}
+
+.mat-column-role {
+  padding-left: 20px;
+}
+.mat-column-pos{
+  max-width:50px;
+}

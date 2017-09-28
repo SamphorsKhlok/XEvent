@@ -47,24 +47,24 @@ userSchema.statics.get = function (uid = null) {
     })
 }
 
-userSchema.statics.listUsers = function (pgStart = 0, perPage=10) {
-    console.log("searching user db starting from: " + pgStart + " & limit "+ perPage);
+userSchema.statics.listUsers = function (pgStart = 0, perPage = 10) {
+    console.log("searching user db starting from: " + pgStart + " & limit " + perPage);
     var perPage = parseInt(perPage);
     var pgStart = parseInt(pgStart);
     return new Promise((resolve, reject) => {
         User.find({})
-        .limit(perPage)
-        .skip(perPage * pgStart)
-        .sort({
-            userID: 'asc'
-        })
-        .exec( (err, data) => {
-            if (err) reject(err)
-            if (data)
-                resolve(JSON.stringify(data))
-            else
-                resolve([]) // user not found, return empty array
-        });
+            .limit(perPage)
+            .skip(perPage * pgStart)
+            .sort({
+                userID: 'asc'
+            })
+            .exec((err, data) => {
+                if (err) reject(err)
+                if (data)
+                    resolve(JSON.stringify(data))
+                else
+                    resolve([]) // user not found, return empty array
+            });
     })
 }
 
@@ -116,6 +116,50 @@ userSchema.methods.update = function () {
     })
 }
 
+userSchema.statics.changeRole = function (formData) {
+    return new Promise((resolve, reject) => {
+        // available date from Post targetUserId, targetRoleId
+        console.log('formData.targetUserId.. '+ formData.targetUserId)
+        const targetUserId = formData.targetUserId;
+        const targetRoleId = parseInt(formData.targetRoleId);
+
+        User.findOneAndUpdate({
+            userID: targetUserId
+        }, {
+            role: targetRoleId
+        }, (err, data) => {
+            if (err) {
+                throw err;
+            } else {
+                console.log('user role updated')
+                resolve(data);
+            }
+        })
+    })
+}
+
+userSchema.statics.changeAccess = function (formData) {
+    return new Promise((resolve, reject) => {
+        // available date from Post targetUserId, accessId
+        console.log('formData.targetUserId.. '+ formData.targetUserId)
+        const targetUserId = formData.targetUserId;
+        const accessId = parseInt(formData.accessId);
+
+        User.findOneAndUpdate({
+            userID: targetUserId
+        }, {
+            enabled: accessId
+        }, (err, data) => {
+            if (err) {
+                throw err;
+            } else {
+                console.log('user access level updated')
+                resolve(data);
+            }
+        })
+    })
+}
+
 userSchema.statics.isAdmin = function (uid) {
     console.log("check if user is admin: " + uid);
     return new Promise((resolve, reject) => {
@@ -132,7 +176,7 @@ userSchema.statics.isAdmin = function (uid) {
             })
         }
     })
-}
+};
 
 let User = mongoose.model('User', userSchema);
 module.exports = User;
