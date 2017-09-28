@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {HttpService} from "../../../services/http.service";
+import {MdSnackBar} from "@angular/material";
 
 @Component({
   selector: 'app-eventdetail',
@@ -11,7 +12,9 @@ export class EventdetailComponent implements OnInit {
   myForm: FormGroup;
   @Input() selectedItem ;
 
-  constructor(private fb: FormBuilder, private http: HttpService) {
+  constructor(private fb: FormBuilder,
+              private http: HttpService,
+              public snackBar: MdSnackBar) {
     this.createForm();
   }
 
@@ -41,13 +44,6 @@ export class EventdetailComponent implements OnInit {
     );
   }
 
-  deleteEvent(id){
-    this.http.deleteEvent(id).subscribe(
-      (data)=> console.log(data),
-      (error)=> console.error(error),
-      ()=> console.info("completed")
-    );
-  }
   //TODO: form need to fix on page when scroll down far
   ngOnInit() {
   }

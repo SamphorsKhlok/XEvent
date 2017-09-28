@@ -14,7 +14,8 @@ import {
   MdDatepickerModule,
   MdNativeDateModule,
   MdGridListModule,
-  MdDialogModule
+  MdDialogModule,
+  MdSnackBarModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -74,7 +75,7 @@ export const firebaseConfig = {
     EventlistComponent,
     EventdetailComponent,
     TextfilterPipe,
-    DialogRegister
+    DialogRegister,
   ],
   entryComponents: [DialogRegister],
   imports: [
@@ -93,6 +94,7 @@ export const firebaseConfig = {
     MdNativeDateModule,
     MdGridListModule,
     MdDialogModule,
+    MdSnackBarModule,
     myRoutes,
     FlexLayoutModule,
     FormsModule,

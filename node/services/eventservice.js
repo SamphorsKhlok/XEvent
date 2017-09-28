@@ -85,16 +85,17 @@ eventSchema.methods.add = function () {
     })
 };
 
-eventSchema.methods.remove = function (id) {
-    console.log("remove");
+eventSchema.statics.removeEvent = function (id = null) {
+    console.log("remove event with " + id);
     return new Promise((res, rej) => {
         if (id === null) {
             res({ message : "Remove Failed. No ID found"});
         } else {
-            Event.findByIdAndRemove({
-                id
+            Event.remove({
+                _id: id
             }, function (err, data) {
                 if (err) rej(err);
+                console.log("remove successfully" +data);
                 res({message : "Remove Successfully", data: data});
             });
         }
@@ -127,7 +128,7 @@ eventSchema.methods.update = function () {
             resolve(data);
         })
     })
-}
+};
 
 eventSchema.statics.searchEvents = function (skip = 0, keyword = null) {
     console.log("searching event " + keyword);
@@ -152,7 +153,7 @@ eventSchema.statics.searchEvents = function (skip = 0, keyword = null) {
             }).limit(perPage).skip(perPage*skip);
         }
     })
-}
+};
 
 eventSchema.statics.registerUser = function (userID = null, eventID = null ) {
     console.log("registering event ");
@@ -175,7 +176,7 @@ eventSchema.statics.registerUser = function (userID = null, eventID = null ) {
             });
         }
     })
-}
+};
 
 
 let Event = mongoose.model('Event',eventSchema);

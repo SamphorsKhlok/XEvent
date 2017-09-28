@@ -1,4 +1,4 @@
 <div fxLayout="row" fxLayoutAlign="start start" >
-  <app-eventlist  (emitter)="passingData($event)"></app-eventlist>
+  <app-eventlist (emitter)="passingData($event)"></app-eventlist>
   <app-eventdetail  [selectedItem]="item" *ngIf="item"></app-eventdetail>
 </div>

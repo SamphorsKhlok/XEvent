@@ -89,11 +89,14 @@ router.post('/update', (req, res) => {
 });
 
 //delete event
-router.get('/delete/:id', (req, res) => {
+router.get('/remove/:id', (req, res) => {
+    console.log("removing event");
     console.log(req.params.id);
-    Event.remove(req.params.id).then((data) => {
-        res.json(data);
-    })
+    Event.removeEvent(req.params.id)
+        .then(data => {
+            res.json(data);
+        })
+        .catch(err => res.json(err));
 });
 
 //search

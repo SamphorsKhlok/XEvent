@@ -38,7 +38,7 @@ export class HttpService {
   }
 
   deleteEvent(id){
-    this.url = this.baseUrl + this.eventPage + '/delete/'+ id;
+    this.url = this.baseUrl + this.eventPage + '/remove/'+ id;
     return this.http.get(this.url);
   }
 

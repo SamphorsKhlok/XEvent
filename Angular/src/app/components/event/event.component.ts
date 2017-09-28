@@ -8,6 +8,7 @@ import {HttpService} from "../../services/http.service";
 })
 export class EventComponent implements OnInit {
   item;
+  isRefresh: boolean = false;
   list:any = [
     {
       Title: "BoilerMake",
