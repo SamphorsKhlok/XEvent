@@ -39,11 +39,11 @@ export class SidenavComponent implements OnInit {
     this.user = this.authService.getState();
     this.user.subscribe(
       r => {
-        //if (this.authService.getUserID()) {
-          //this.isAdmin = this.profileService.isAdmin(this.authService.getUserID());
-        //}
-        if (r.uid) {
-          if (this.profileService.isAdmin(this.authService.getUserID())) {
+        if (r && r.uid) {
+          if (this.authService.getUserID()) {
+            this.isAdmin = this.profileService.isAdmin(this.authService.getUserID());
+          }
+          if (this.isAdmin) {
             this.links = [
               {
                 title: "Home",
@@ -74,20 +74,5 @@ export class SidenavComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  /* else {
-   this.links = [
-     {
-       title: "Home",
-       icon: "home",
-       link: "/"
-     },
-     {
-       title: "Profile",
-       icon: "account_circle",
-       link: "/profile"
-     }
-   ];
- } */
 
 }
