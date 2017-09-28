@@ -9,7 +9,7 @@ export class HttpService {
 
   //baseUrl:string = "http://localhost:3000/";
   //baseUrl:string = "http://radiant-hamlet-17220.herokuapp.com/";
-  baseUrl = this.globals.baseUrl;
+  baseUrl = this.globals.serverUrl;
   eventPage: string = "events";
   url: string = "";
   body = {};

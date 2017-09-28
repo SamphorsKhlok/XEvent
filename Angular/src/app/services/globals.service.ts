@@ -6,10 +6,10 @@ export class GlobalsService {
   // dev
   //public userUrl = 'http://radiant-hamlet-17220.herokuapp.com/users/';
   //public baseUrl:string = "http://localhost:3000/";
-  public baseUrl = 'http://radiant-hamlet-17220.herokuapp.com/';
+  public serverUrl = 'http://radiant-hamlet-17220.herokuapp.com/';
 
-  //urlPrefix = '';
-  urlPrefix = '/xevent';
+  urlPrefix = '';
+  //urlPrefix = '/xevent';
 
   public links = [
     {

@@ -8,7 +8,7 @@ import { GlobalsService } from './globals.service';
 @Injectable()
 export class ProfileService {
 
-  private userUrl = this.globals.baseUrl + 'users/';
+  private userUrl = this.globals.serverUrl + 'users/';
   constructor(private http: Http, private localStorageService: LocalStorageService, private globals: GlobalsService) { }
 
   getUser(id) {

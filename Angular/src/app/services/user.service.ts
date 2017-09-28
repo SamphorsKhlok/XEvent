@@ -8,7 +8,7 @@ import { AuthService } from './auth.service';
 @Injectable()
 export class UserService {
 
-  private userUrl = this.globals.baseUrl + 'users/';
+  private userUrl = this.globals.serverUrl + 'users/';
   constructor(private http: Http, private authService: AuthService, private globals: GlobalsService) { }
 
   getUser(id) {

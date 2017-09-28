@@ -27,13 +27,15 @@ export class UserComponent implements OnInit {
   displayedColumns = ['pos', 'name', 'email', 'role', 'action'];
   dataSource;
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router) {
+   }
 
   ngOnInit() {
     this.getData();
   }
 
   getData() {
+    data.length = 0;
     this.userService.getUsers(0, 10).subscribe(
       r => {
         const d = JSON.parse(r);
