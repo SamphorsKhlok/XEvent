@@ -30,7 +30,7 @@ let eventSchema = new mongoose.Schema({
     tags: [String],
     isDelete: Boolean,
     users:[String],
-    imageUrl: String
+    urlImage: String
 });
 
 eventSchema.statics.get = function (uid = null, skip = 0, keyword = null) {
@@ -62,13 +62,36 @@ eventSchema.pre('save', function(next) {
     next();
 });
 
-eventSchema.methods.add = function () {
+eventSchema.methods.saveEvent = function (data = {},id = 0) {
     console.log("Save");
 
     return new Promise((resolve, reject) => {
-        newEvent = this;
+        //newEvent = new Event({data});
         //console.log(newEvent);
-        newEvent.save(function (err) {
+        Event.findOneAndUpdate({
+            _id:ObjectID(id)
+        },{
+            name: this.name,
+            description: this.description,
+            remark: this.remark,
+            date: this.date,
+            created_at: this.created_at,
+            updated_at: Date.now(),
+            address: {
+                street: this.address.street,
+                city: this.address.city,
+                state: this.address.state,
+                zipcode: this.address.zipcode,
+            },
+            location: this.location,
+            tags: this.tags,
+            isDelete: this.isDelete,
+            users:this.users,
+            urlImage: this.urlImage
+        },
+        {
+            new : true
+        },function (resolve,err) {
             if (err) {
                 reject({
                     message: err,

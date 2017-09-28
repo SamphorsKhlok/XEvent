@@ -46,36 +46,35 @@ router.get('/:id', (req, res) => {
 });
 
 //Add new event
-router.post('/add', (req, res) => {
-    console.log("event add");
-    //const newEvent = new Event(req.body);
-    const newEvent = new Event({
-        name: 'Event 1',
-        description: 'best aewsome event ever',
-        remark: 'reamark here please',
-        date: Date.now(),
-        created_at: Date.now(),
-        //updated_at: Date.now(),
-        address: {
-            street: 'street1',
-            city: 'city123',
-            State: 'state123',
-            zipcode: 123456,
-        },
-        location: [20,10],
-        tags: ["Java","PHP"],
-        isDelete: false,
-        users: ["1234","2345","866"]
-    });
+router.post('/save', (req, res) => {
+    console.log("event add " + req.body.data);
+    console.log("id " + req.body.id);
+    const newEvent = new Event(req.body.data);
+    // const newEvent = new Event({
+    //     name: 'Event 1',
+    //     description: 'best aewsome event ever',
+    //     remark: 'reamark here please',
+    //     date: Date.now(),
+    //     created_at: Date.now(),
+    //     //updated_at: Date.now(),
+    //     address: {
+    //         street: 'street1',
+    //         city: 'city123',
+    //         State: 'state123',
+    //         zipcode: 123456,
+    //     },
+    //     location: [20,10],
+    //     tags: ["Java","PHP"],
+    //     isDelete: false,
+    //     users: ["1234","2345","866"]
+    // });
 
     console.log("Event being pushed in Database :" + newEvent);
 
-    newEvent.add().then(() => {
-        res.json({
-            status: 1,
-            userData: newEvent
-        });
-    })
+    newEvent.saveEvent(req.body.data,req.body.id).then(data => {
+        res.json(data);
+        })
+        .catch(err => res.json(err));
 });
 
 //update user  info

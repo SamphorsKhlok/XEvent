@@ -48,7 +48,8 @@ export class EventdetailComponent implements OnInit {
         }),
       location : new FormControl(this.selectedItem.location || "", Validators.required),
       tags : new FormControl(this.selectedItem.tags || "", Validators.required),
-      users : new FormControl(this.selectedItem.users || "",  Validators.required)
+      users : new FormControl(this.selectedItem.users || "",  Validators.required),
+      urlImage : new FormControl(this.selectedItem.urlImage || "",  Validators.required)
     });
   };
 

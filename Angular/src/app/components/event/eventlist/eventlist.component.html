@@ -27,7 +27,7 @@
           <md-chip *ngFor="let i of item.tags" color="primary">{{i}}</md-chip>
         </md-chip-list>
       </p>
-      <button md-icon-button (click)="deleteEvent(i)">
+      <button md-icon-button (click)="deleteEvent(item._id)">
         <md-icon class="md-24" color="warn">delete</md-icon>
       </button>
     </md-list-item>

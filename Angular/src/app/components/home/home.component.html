@@ -23,7 +23,7 @@
         </md-card-header>
         <img md-card-image src="{{item.urlImage}}">
         <md-card-content>
-          <p md-line>{{item.description | textfilter: [100, ' ... more']}}</p>
+          <p md-line>{{item.description | textfilter: [200, ' ... more']}}</p>
           <p md-line>
             <md-chip-list >
               <md-chip *ngFor="let i of item.tags" color="primary">{{i}}</md-chip>
