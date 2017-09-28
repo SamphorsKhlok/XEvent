@@ -16,8 +16,12 @@ export class HttpService {
   }
 
   //service for event
-  addEvent(){
-    this.url = this.baseUrl+this.eventPage+ '/add';
+  saveEvent(obj,id){
+    this.url = this.baseUrl+this.eventPage+ '/save';
+    this.body = {
+      data: obj,
+      id : id
+    };
     //with token TODO: add token later
     //return this.http.post(this.url,this.body,{headers: this.headers});
     return this.http.post(this.url,this.body);
