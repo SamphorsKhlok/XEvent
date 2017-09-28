@@ -40,10 +40,7 @@ export class SidenavComponent implements OnInit {
     this.user.subscribe(
       r => {
         if (r && r.uid) {
-          if (this.authService.getUserID()) {
-            this.isAdmin = this.profileService.isAdmin(this.authService.getUserID());
-          }
-          if (this.isAdmin) {
+          if (this.profileService.isAdmin(this.authService.getUserID())) {
             this.links = [
               {
                 title: "Home",

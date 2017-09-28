@@ -25,6 +25,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { Ng2Webstorage } from 'ng2-webstorage';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
@@ -108,7 +109,7 @@ export const firebaseConfig = {
     InfiniteScrollModule,
     MdTableModule
   ],
-  providers: [AuthGuard, AuthService, ProfileService, HttpService, AdminGuard, UserService],
+  providers: [AuthGuard, AuthService, ProfileService, HttpService, AdminGuard, UserService, HashLocationStrategy],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

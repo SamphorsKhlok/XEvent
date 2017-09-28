@@ -6,7 +6,7 @@ import { LocalStorageService } from 'ng2-webstorage';
 @Injectable()
 export class ProfileService {
   //private userUrl = 'http://localhost:3000/users/';
-  private userUrl = 'https://dry-springs-92534.herokuapp.com/users/';
+  private userUrl = 'http://radiant-hamlet-17220.herokuapp.com/users/';
   constructor(private http: Http, private localStorageService: LocalStorageService) { }
 
   getUser(id) {
