@@ -8,8 +8,8 @@ export class GlobalsService {
   //public baseUrl:string = "http://localhost:3000/";
   public serverUrl = 'http://radiant-hamlet-17220.herokuapp.com/';
 
-  urlPrefix = '';
-  //urlPrefix = '/xevent';
+  //urlPrefix = '';
+  urlPrefix = '/xevent';
 
   public links = [
     {
