@@ -56,10 +56,26 @@ export class EventdetailComponent implements OnInit {
   submitForm(){
     console.log(this.myForm.value);
     this.http.saveEvent(this.myForm.value, this.selectedItem._id).subscribe(
-      (data)=> console.log(data),
-      (error)=> console.error(error),
-      ()=> console.info("completed")
+        (data)=> {
+            console.log(data);
+            this.snackBar.open("Save Successful", "Close" ,{
+              duration: 2000,
+            });
+          },
+        (error)=> {
+          this.snackBar.open("Error" + error, "Close" ,{
+            duration: 2000,
+          });
+        },
+        () => {
+          console.info("completed");
+        }
     );
+  }
+
+  resetForm(){
+    this.myForm.reset();
+    this.selectedItem = {};
   }
 
   //TODO: form need to fix on page when scroll down far

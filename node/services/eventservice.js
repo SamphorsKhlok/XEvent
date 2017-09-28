@@ -91,12 +91,12 @@ eventSchema.methods.saveEvent = function (data = {},id = 0) {
         },
         {
             new : true
-        },function (resolve,err) {
+        },function (err,data) {
             if (err) {
                 reject({
                     message: err,
                     status: 0
-                })
+                });
             } else {
                 console.log("new event Added Successfully !");
                 resolve({
