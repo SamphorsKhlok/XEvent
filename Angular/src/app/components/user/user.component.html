@@ -24,8 +24,8 @@
       <ng-container mdColumnDef="role">
         <md-header-cell *mdHeaderCellDef> Role </md-header-cell>
         <md-cell *mdCellDef="let element"> 
-          <a (click)="changeRole(element.userID)" *ngIf="element.role == 1">Make Admin</a>
-          {{element.role}} 
+          <button md-raised-button color="primary"  (click)="changeRole(element.userID, 2)" *ngIf="element.role == 1">Admin</button>
+          <!-- <button md-raised-button color="primary" (click)="changeRole(element.userID, 1)" *ngIf="element.role == 2">Regular</button> -->
         </md-cell>
       </ng-container>
 
@@ -33,7 +33,8 @@
       <ng-container mdColumnDef="action">
           <md-header-cell *mdHeaderCellDef> Action </md-header-cell>
           <md-cell *mdCellDef="let element">
-              <a (click)="enable(element.userID)" *ngIf="element.enabled == 1">Disable</a>
+              <button md-raised-button color="warn" (click)="changeAccessLevel(element.userID, 0)" *ngIf="element.role == 1 && element.enabled == 1">Disable</button>
+              <button md-raised-button color="warn" (click)="changeAccessLevel(element.userID, 1)" *ngIf="element.role == 1 && element.enabled == 0">Enable</button>
           </md-cell>
         </ng-container>
   
