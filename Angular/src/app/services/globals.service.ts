@@ -9,6 +9,11 @@ export class GlobalsService {
   public serverUrl = 'http://radiant-hamlet-17220.herokuapp.com/';
 
   urlPrefix = '';
+  /* 
+  we dont need url prefix for deploy in given sub directory,
+  specify sub dir using base-href during build
+  ng build --base-href http://abugidatech.com/xevent/ 
+  */
   //urlPrefix = '/xevent';
 
   public links = [
