@@ -35,6 +35,7 @@ export class EventdetailComponent implements OnInit {
     //   users: ['',Validators.required],
     // });
 
+    //TODO: get tags and location properly
     this.myForm = new FormGroup({
       name : new FormControl(this.selectedItem.name ||'', Validators.required),
       description : new FormControl(this.selectedItem.description || "", Validators.required),

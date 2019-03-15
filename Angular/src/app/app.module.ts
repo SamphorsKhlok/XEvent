@@ -31,7 +31,7 @@ import { AppComponent } from './app.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { myRoutes } from './app.routers';
-import {DialogRegister, HomeComponent} from './components/home/home.component';
+import { DialogRegister, HomeComponent} from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ErrorComponent } from './components/error/error.component';
 import { LoginComponent } from './components/login/login.component';
